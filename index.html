@@ -4,31 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drawers - Resource Organization</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    /* NYU Perstare Font */
+    @font-face {
+      font-family: 'NYU Perstare';
+      src: url('NYUPerstare-Desktop-20250918/OpenTypeFonts/NYUPerstare-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NYU Perstare';
+      src: url('NYUPerstare-Desktop-20250918/OpenTypeFonts/NYUPerstare-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NYU Perstare';
+      src: url('NYUPerstare-Desktop-20250918/OpenTypeFonts/NYUPerstare-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NYU Perstare';
+      src: url('NYUPerstare-Desktop-20250918/OpenTypeFonts/NYUPerstare-Black.otf') format('opentype');
+      font-weight: 900;
+      font-style: normal;
+    }
 
 :root {
-    /* Brand Colors - Purple Palette */
-    --primary-color: #6b2d8f;
-    --primary-dark: #4a1d65;
-    --primary-light: #8e44ad;
-    --primary-gradient: linear-gradient(135deg, #7b3fa0 0%, #5a2278 100%);
+    /* NYU Brand Colors */
+    --primary-color: #57068c;
+    --primary-dark: #330a57;
+    --primary-light: #7a1eb3;
+    --primary-gradient: linear-gradient(135deg, #57068c 0%, #330a57 100%);
 
     /* Neutral Colors */
     --text-primary: #2d2d3a;
     --text-secondary: #5a5a6e;
     --text-tertiary: #8a8a9e;
-    --background-color: #f5f3f8;
+    --background-color: #f7f5f9;
     --card-background: #ffffff;
     --header-background: #ffffff;
     --modal-background: #ffffff;
     --input-background: #ffffff;
 
-    /* Accent Colors - Purple Tints */
-    --accent-purple-light: #a47bb8;
-    --accent-purple-lighter: #d4c4e0;
-    --accent-purple-lightest: #ebe5f2;
+    /* NYU Accent Colors - Violet Tints */
+    --accent-purple-light: #8b4db8;
+    --accent-purple-lighter: #c4a3d9;
+    --accent-purple-lightest: #ebe0f5;
 
     /* UI Elements */
     --border-color: #e4e0eb;
@@ -67,7 +90,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'NYU Perstare', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
@@ -81,7 +104,7 @@ body {
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 16px 48px;
   background-color: var(--header-background);
@@ -104,6 +127,8 @@ header {
   flex-shrink: 0;
   cursor: pointer;
   transition: opacity var(--transition-fast);
+  position: absolute;
+  left: 48px;
 }
 
 .logo-container:hover {
@@ -119,17 +144,20 @@ header {
 @media (max-width: 768px) {
   .logo-container {
     height: 32px;
+    left: 20px;
   }
 
   .logo-container img {
     max-width: 140px;
   }
+
+  .header-buttons {
+    right: 20px;
+  }
 }
 
 
 .header-title {
-  flex-grow: 1;
-  min-width: 0;
   text-align: center;
 }
 
@@ -168,6 +196,8 @@ header {
   gap: 6px;
   align-items: center;
   flex-shrink: 0;
+  position: absolute;
+  right: 48px;
 }
 
 .options-dropdown {
@@ -431,6 +461,138 @@ header {
   white-space: nowrap;
 }
 
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--background-color);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.share-option-btn:hover {
+  border-color: var(--primary-color);
+  background: var(--accent-purple-lightest);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.share-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.share-option-content {
+  flex: 1;
+}
+
+.share-option-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.share-option-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.share-option-tag {
+  background: #2ecc71;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  text-transform: lowercase;
+}
+
+.json-input {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+  font-size: 0.75rem;
+  resize: vertical;
+}
+
+.drop-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--background-color);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.drop-zone:hover {
+  border-color: var(--primary-color);
+  background: var(--accent-purple-lightest);
+}
+
+.drop-zone.drag-over {
+  border-color: var(--primary-color);
+  background: var(--accent-purple-lightest);
+  transform: scale(1.02);
+}
+
+.drop-zone-content {
+  pointer-events: none;
+}
+
+.drop-zone-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.drop-zone-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.drop-zone-subtext {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 8px 0;
+}
+
+.drop-zone-button {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all var(--transition-fast);
+}
+
+.drop-zone-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
 .popup-buttons button:first-child {
   background: var(--primary-color);
   color: white;
@@ -470,7 +632,13 @@ header {
   display: flex;
   justify-content: center;
   padding: 0;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
+}
+
+#comment-container .drawer-search-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .search-input-wrapper {
@@ -550,10 +718,17 @@ header {
   align-items: center;
 }
 
+#comment-container .add-comment-bank {
+  margin-bottom: 24px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .add-comment-bank .add-button {
   font-size: 1.1rem;
   padding: 20px 32px;
-  background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  background: var(--primary-gradient);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -586,7 +761,7 @@ header {
 .archive-link-button {
   font-size: 1.1rem;
   padding: 20px 32px;
-  background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  background: var(--primary-gradient);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -692,10 +867,9 @@ header {
 
 .bank-action-btn {
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: none;
   color: var(--text-secondary);
   padding: 4px 8px;
-  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 0.75rem;
   transition: all var(--transition-fast);
@@ -703,19 +877,11 @@ header {
 }
 
 .bank-action-btn:hover {
-  background: var(--accent-purple-lightest);
   color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.bank-archive-btn {
-  background: transparent;
 }
 
 .bank-archive-btn:hover {
-  background: #fff4e6;
   color: #e67e22;
-  border-color: #e67e22;
 }
 
 .no-comment-banks {
@@ -727,10 +893,25 @@ header {
 
 .comment-container {
   display: none;
-  margin: 0;
-  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 120px 80px;
+  width: 100%;
   flex: 1;
   background-color: var(--background-color);
+}
+
+@media (max-width: 1200px) {
+  .comment-container {
+    max-width: 100%;
+    padding: 40px 60px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .comment-container {
+    padding: var(--space-lg) var(--space-md);
+  }
 }
 
 .drawer-page-header {
@@ -836,18 +1017,19 @@ header {
 
 .comment-search-input {
   width: 100%;
-  padding: 10px 36px 10px 16px;
+  padding: 14px 40px 14px 20px;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
   background: var(--input-background);
+  transition: all var(--transition-fast);
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .comment-search-input {
-    padding: 6px 32px 6px 10px;
-    font-size: 0.85rem;
+    padding: 8px 36px 8px 12px;
+    font-size: 0.9rem;
   }
 }
 
@@ -896,6 +1078,38 @@ header {
   border-bottom: 2px solid var(--border-color);
 }
 
+.tag-filter-bar.collapsed .tag-filter-header .filter-count,
+.tag-filter-bar.collapsed .tag-filter-header .btn-compact,
+.tag-filter-bar.collapsed .tag-filter-header .clear-filters-btn {
+  display: none;
+}
+
+.tag-filter-bar.collapsed .tag-filters {
+  display: none;
+}
+
+.tag-filter-bar.collapsed .tag-filter-header {
+  padding: 8px 20px;
+  justify-content: flex-start;
+  background: transparent;
+  border-bottom: none;
+}
+
+#comment-container .tag-filter-bar {
+  margin-bottom: 32px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background: transparent;
+}
+
+#comment-container .tag-filter-bar.collapsed {
+  margin-bottom: 0;
+  border: none;
+  background: transparent;
+}
+
 .tag-filter-header {
   display: flex;
   align-items: center;
@@ -903,6 +1117,19 @@ header {
   padding: 12px 120px;
   background: var(--accent-purple-lightest);
   border-bottom: 1px solid var(--border-color);
+  transition: padding var(--transition-base), background var(--transition-base), border-bottom var(--transition-base);
+}
+
+#comment-container .tag-filter-header {
+  padding: 12px 20px;
+}
+
+#comment-container .tag-filter-bar.collapsed .tag-filter-header {
+  padding: 8px 0;
+}
+
+#comment-container .tag-filters {
+  padding: 16px 20px;
 }
 
 @media (max-width: 1200px) {
@@ -924,7 +1151,7 @@ header {
   padding: 2px 6px;
   cursor: pointer;
   color: var(--primary-color);
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), background var(--transition-fast);
 }
 
 .toggle-filters-btn:hover {
@@ -939,7 +1166,7 @@ header {
   padding: 16px 120px;
   max-height: 200px;
   overflow-y: auto;
-  transition: max-height var(--transition-base);
+  transition: max-height var(--transition-base), padding var(--transition-base);
 }
 
 @media (max-width: 1200px) {
@@ -1001,6 +1228,23 @@ header {
   flex: 1;
 }
 
+.tag-filter-header .btn-compact {
+  padding: 4px 10px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tag-filter-header .btn-compact:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
 .clear-filters-btn {
   padding: 4px 10px;
   background: var(--text-tertiary);
@@ -1018,8 +1262,7 @@ header {
 }
 
 .comments-list-wrapper {
-  padding: 48px 120px 80px;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   width: 100%;
 }
@@ -1726,231 +1969,301 @@ header {
 
   <div id="overlay" class="overlay"></div>
 
+  <!-- About Popup -->
+  <div id="about-popup" class="popup about-modal">
+    <div class="popup-header">
+      <h2>About Drawers</h2>
+    </div>
+    <div class="popup-body">
+      <div class="about-section">
+        <h3 class="about-heading">The Problem with Traditional Bookmarks</h3>
+        <p class="about-text">
+          Browser bookmarks were designed for casual web browsing, not professional knowledge management. They fall short in several critical ways:
+        </p>
+        <ul class="about-list">
+          <li><strong>Chaotic Organization:</strong> Bookmarks pile up in folders with no clear structure.</li>
+          <li><strong>No Context:</strong> You can't add descriptions or explanations about why a resource matters.</li>
+          <li><strong>No Tagging or Filtering:</strong> You're stuck with rigid folder hierarchies.</li>
+        </ul>
+      </div>
+
+      <div class="about-section">
+        <h3 class="about-heading">How Drawers Solves This</h3>
+        <p class="about-text">
+          Drawers reimagines bookmarking as a <strong>contextual knowledge management system</strong> designed for educators and professionals.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-icon">🗂️</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Organized Drawers</h4>
+              <p class="feature-desc">Group resources by project, course, or topic.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">📝</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Rich Context</h4>
+              <p class="feature-desc">Add titles, descriptions, and links to each card.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">🏷️</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Flexible Tagging</h4>
+              <p class="feature-desc">Create custom tags and apply multiple tags to each card.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Powerful Search</h4>
+              <p class="feature-desc">Search across all drawers and cards instantly.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">📤</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Easy Sharing</h4>
+              <p class="feature-desc">Export drawers as .drawer files.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">💾</div>
+            <div class="feature-content">
+              <h4 class="feature-title">Local Storage</h4>
+              <p class="feature-desc">All data stored locally in your browser.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section about-footer">
+        <p class="about-version">Version 1.0</p>
+        <p class="about-tagline">Built for educators, researchers, and knowledge workers who deserve better than browser bookmarks.</p>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="closeAboutBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- New Drawer Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-header">
+      <h2>New Drawer</h2>
+    </div>
+    <div class="popup-body">
+      <label for="assignment-name">Drawer Name</label>
+      <input type="text" id="assignment-name" placeholder="e.g., Faculty Resources">
+    </div>
+    <div class="popup-buttons" style="position: relative;">
+      <button id="createBankBtn">Create</button>
+      <button id="cancelBankBtn">Cancel</button>
+      <div style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 8px; white-space: nowrap;">
+        <a id="uploadFromNewDrawerBtn" style="color: var(--primary-color); cursor: pointer; text-decoration: underline; font-size: 0.85rem;">
+          upload existing drawer
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Confirmation Popup -->
+  <div id="clear-data-popup" class="popup">
+    <div class="popup-header">
+      <h2>Are you sure you want to erase your data?</h2>
+    </div>
+    <div class="popup-buttons">
+      <button id="yesClearBtn">Yes, let's erase it all!</button>
+      <button id="noClearBtn">No, never mind.</button>
+    </div>
+  </div>
+
+  <!-- Download Popup -->
+  <div id="download-popup" class="popup">
+    <div class="popup-header">
+      <h2>Download Drawer</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
+        Select a drawer to download as a .drawer file.
+      </p>
+      <div id="download-options"></div>
+    </div>
+    <div class="popup-buttons">
+      <button id="downloadConfirmBtn">Download</button>
+      <button id="cancelDownloadBtn">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Archive Confirmation Popup -->
+  <div id="archive-confirm-popup" class="popup">
+    <div class="popup-header">
+      <h2>Archive Drawer?</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
+        Are you sure you want to archive <strong id="archive-drawer-name"></strong>?
+      </p>
+      <p style="color: var(--text-tertiary); font-size: 0.85rem;">
+        You can restore it later from the Archive.
+      </p>
+    </div>
+    <div class="popup-buttons">
+      <button id="confirmArchiveBtn">Archive</button>
+      <button id="cancelArchiveBtn">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Upload Popup -->
+  <div id="upload-popup" class="popup">
+    <div class="popup-header">
+      <h2>Upload Drawer</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
+        Upload a .drawer file or paste .drawer file data
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Option 1: Upload Files</label>
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-zone-content">
+            <span class="drop-zone-icon">📁</span>
+            <p class="drop-zone-text">Drag & drop .drawer files here</p>
+            <p class="drop-zone-subtext">or</p>
+            <label for="upload-input" class="drop-zone-button">Choose Files</label>
+            <input type="file" id="upload-input" accept=".drawer,.json" multiple style="display: none;">
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; color: var(--text-tertiary); margin: 16px 0;">— or —</div>
+
+      <div>
+        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Option 2: Paste .drawer File Data</label>
+        <textarea
+          id="upload-json-input"
+          placeholder='Paste drawer file data here...'
+          class="json-input"
+        ></textarea>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="uploadConfirmBtn">Upload</button>
+      <button id="cancelUploadBtn">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Share Popup -->
+  <div id="share-popup" class="popup">
+    <div class="popup-header">
+      <h2>Share Drawer</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
+        Share "<strong id="share-drawer-name"></strong>" with others
+      </p>
+
+      <div class="share-options">
+        <button class="share-option-btn" id="shareEmailBtn">
+          <span class="share-icon">📧</span>
+          <div class="share-option-content">
+            <div class="share-option-title">Share via Email</div>
+            <div class="share-option-desc">Open email client with drawer data</div>
+          </div>
+          <span class="share-option-tag">simplest</span>
+        </button>
+
+        <button class="share-option-btn" id="shareDownloadBtn">
+          <span class="share-icon">💾</span>
+          <div class="share-option-content">
+            <div class="share-option-title">Download as File</div>
+            <div class="share-option-desc">Save as .drawer file to share manually</div>
+          </div>
+        </button>
+
+        <button class="share-option-btn" id="shareCopyJsonBtn">
+          <span class="share-icon">📋</span>
+          <div class="share-option-content">
+            <div class="share-option-title">Copy .drawer File Data</div>
+            <div class="share-option-desc">Copy drawer data to clipboard</div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="cancelShareBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Tag Manager Popup -->
+  <div id="tag-manager-popup" class="popup tag-manager">
+    <div class="popup-header">
+      <h2>Manage Tags</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 12px;">
+        Create custom tags to organize your cards. You can apply multiple tags to each card.
+      </p>
+
+      <div class="tag-list" id="tag-list"></div>
+
+      <div class="tag-form">
+        <div class="tag-form-row">
+          <div class="tag-form-group">
+            <label>Tag Name</label>
+            <input type="text" id="new-tag-name" placeholder="e.g., Important, To Read">
+          </div>
+          <div class="tag-form-group tag-color-group">
+            <label>Color</label>
+            <input type="color" id="new-tag-color" value="#6b2d8f">
+          </div>
+        </div>
+        <button class="btn-primary" id="addTagBtn">+ Add Tag</button>
+      </div>
+    </div>
+
+    <div class="popup-buttons">
+      <button id="doneTagsBtn">Done</button>
+    </div>
+  </div>
+
+  <!-- Add/Edit Card Popup -->
+  <div id="add-comment-popup" class="popup add-comment-modal">
+    <div class="popup-header">
+      <h2 id="comment-modal-title">New Card</h2>
+    </div>
+    <div class="popup-body">
+      <label for="card-title">Title</label>
+      <input type="text" id="card-title" placeholder="Enter card title...">
+
+      <label for="card-link">Link</label>
+      <input type="url" id="card-link" placeholder="Enter URL...">
+
+      <label for="card-description">Description</label>
+      <textarea id="card-description" placeholder="Enter card description..."></textarea>
+
+      <div class="modal-tags-section">
+        <label>Tags (optional)</label>
+        <div class="modal-tags-container" id="modal-tags-container">
+          <span class="no-tags-message">No tags available</span>
+        </div>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="saveCommentBtn">Save Card</button>
+      <button id="cancelCommentBtn">Cancel</button>
+    </div>
+  </div>
+
   <div class="container">
-    <!-- About Popup -->
-    <div id="about-popup" class="popup about-modal">
-      <div class="popup-header">
-        <h2>About Drawers</h2>
-      </div>
-      <div class="popup-body">
-        <div class="about-section">
-          <h3 class="about-heading">The Problem with Traditional Bookmarks</h3>
-          <p class="about-text">
-            Browser bookmarks were designed for casual web browsing, not professional knowledge management. They fall short in several critical ways:
-          </p>
-          <ul class="about-list">
-            <li><strong>Chaotic Organization:</strong> Bookmarks pile up in folders with no clear structure.</li>
-            <li><strong>No Context:</strong> You can't add descriptions or explanations about why a resource matters.</li>
-            <li><strong>No Tagging or Filtering:</strong> You're stuck with rigid folder hierarchies.</li>
-          </ul>
-        </div>
-
-        <div class="about-section">
-          <h3 class="about-heading">How Drawers Solves This</h3>
-          <p class="about-text">
-            Drawers reimagines bookmarking as a <strong>contextual knowledge management system</strong> designed for educators and professionals.
-          </p>
-
-          <div class="feature-grid">
-            <div class="feature-item">
-              <div class="feature-icon">🗂️</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Organized Drawers</h4>
-                <p class="feature-desc">Group resources by project, course, or topic.</p>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">📝</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Rich Context</h4>
-                <p class="feature-desc">Add titles, descriptions, and links to each card.</p>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">🏷️</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Flexible Tagging</h4>
-                <p class="feature-desc">Create custom tags and apply multiple tags to each card.</p>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">🔍</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Powerful Search</h4>
-                <p class="feature-desc">Search across all drawers and cards instantly.</p>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">📤</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Easy Sharing</h4>
-                <p class="feature-desc">Export drawers as .drawer files.</p>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">💾</div>
-              <div class="feature-content">
-                <h4 class="feature-title">Local Storage</h4>
-                <p class="feature-desc">All data stored locally in your browser.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-section about-footer">
-          <p class="about-version">Version 1.0</p>
-          <p class="about-tagline">Built for educators, researchers, and knowledge workers who deserve better than browser bookmarks.</p>
-        </div>
-      </div>
-      <div class="popup-buttons">
-        <button id="closeAboutBtn">Close</button>
-      </div>
-    </div>
-
-    <!-- New Drawer Popup -->
-    <div id="popup" class="popup">
-      <div class="popup-header">
-        <h2>New Drawer</h2>
-      </div>
-      <div class="popup-body">
-        <label for="assignment-name">Drawer Name</label>
-        <input type="text" id="assignment-name" placeholder="e.g., Faculty Resources">
-      </div>
-      <div class="popup-buttons">
-        <button id="createBankBtn">Create</button>
-        <button id="cancelBankBtn">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Reset Confirmation Popup -->
-    <div id="clear-data-popup" class="popup">
-      <div class="popup-header">
-        <h2>Are you sure you want to erase your data?</h2>
-      </div>
-      <div class="popup-buttons">
-        <button id="yesClearBtn">Yes, let's erase it all!</button>
-        <button id="noClearBtn">No, never mind.</button>
-      </div>
-    </div>
-
-    <!-- Download Popup -->
-    <div id="download-popup" class="popup">
-      <div class="popup-header">
-        <h2>Download Drawer</h2>
-      </div>
-      <div class="popup-body">
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
-          Select a drawer to download as a JSON file.
-        </p>
-        <div id="download-options"></div>
-      </div>
-      <div class="popup-buttons">
-        <button id="downloadConfirmBtn">Download</button>
-        <button id="cancelDownloadBtn">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Archive Confirmation Popup -->
-    <div id="archive-confirm-popup" class="popup">
-      <div class="popup-header">
-        <h2>Archive Drawer?</h2>
-      </div>
-      <div class="popup-body">
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
-          Are you sure you want to archive <strong id="archive-drawer-name"></strong>?
-        </p>
-        <p style="color: var(--text-tertiary); font-size: 0.85rem;">
-          You can restore it later from the Archive.
-        </p>
-      </div>
-      <div class="popup-buttons">
-        <button id="confirmArchiveBtn">Archive</button>
-        <button id="cancelArchiveBtn">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Upload Popup -->
-    <div id="upload-popup" class="popup">
-      <div class="popup-header">
-        <h2>Upload Drawer</h2>
-      </div>
-      <div class="popup-body">
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
-          Select a .drawer (JSON) file to upload.
-        </p>
-        <input type="file" id="upload-input" accept=".drawer,.json">
-      </div>
-      <div class="popup-buttons">
-        <button id="uploadConfirmBtn">Upload</button>
-        <button id="cancelUploadBtn">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Tag Manager Popup -->
-    <div id="tag-manager-popup" class="popup tag-manager">
-      <div class="popup-header">
-        <h2>Manage Tags</h2>
-      </div>
-      <div class="popup-body">
-        <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 12px;">
-          Create custom tags to organize your cards. You can apply multiple tags to each card.
-        </p>
-
-        <div class="tag-list" id="tag-list"></div>
-
-        <div class="tag-form">
-          <div class="tag-form-row">
-            <div class="tag-form-group">
-              <label>Tag Name</label>
-              <input type="text" id="new-tag-name" placeholder="e.g., Important, To Read">
-            </div>
-            <div class="tag-form-group tag-color-group">
-              <label>Color</label>
-              <input type="color" id="new-tag-color" value="#6b2d8f">
-            </div>
-          </div>
-          <button class="btn-primary" id="addTagBtn">+ Add Tag</button>
-        </div>
-      </div>
-
-      <div class="popup-buttons">
-        <button id="doneTagsBtn">Done</button>
-      </div>
-    </div>
-
-    <!-- Add/Edit Card Popup -->
-    <div id="add-comment-popup" class="popup add-comment-modal">
-      <div class="popup-header">
-        <h2 id="comment-modal-title">New Card</h2>
-      </div>
-      <div class="popup-body">
-        <label for="card-title">Title</label>
-        <input type="text" id="card-title" placeholder="Enter card title...">
-
-        <label for="card-link">Link</label>
-        <input type="url" id="card-link" placeholder="Enter URL...">
-
-        <label for="card-description">Description</label>
-        <textarea id="card-description" placeholder="Enter card description..."></textarea>
-
-        <div class="modal-tags-section">
-          <label>Tags (optional)</label>
-          <div class="modal-tags-container" id="modal-tags-container">
-            <span class="no-tags-message">No tags available</span>
-          </div>
-        </div>
-      </div>
-      <div class="popup-buttons">
-        <button id="saveCommentBtn">Save Card</button>
-        <button id="cancelCommentBtn">Cancel</button>
-      </div>
-    </div>
-
     <!-- Landing Container -->
     <div id="landing-container">
       <div class="drawer-search-container">
@@ -1965,7 +2278,7 @@ header {
           <button class="add-button" id="addCommentBankBtn">+ Add Drawer</button>
         </div>
         <div class="archive-link-container">
-          <button class="archive-link-button" id="goToArchiveBtn">📦 Archive</button>
+          <button class="archive-link-button" id="goToArchiveBtn">Archive</button>
         </div>
       </div>
       <p class="no-comment-banks" id="no-comment-banks-message">No drawers created yet.</p>
@@ -1974,37 +2287,30 @@ header {
 
   <!-- Archive Container -->
   <div id="archive-container" class="comment-container" style="display: none;">
-    <div class="drawer-page-header">
-      <button class="drawer-back-btn" id="backToHomeFromArchive" title="Back to Home">← Back to Drawers</button>
-      <h2 class="drawer-page-title">📦 Archive</h2>
-    </div>
     <div id="archived-drawers-list" class="comments-list-wrapper"></div>
   </div>
 
   <!-- Comment Container -->
   <div id="comment-container" class="comment-container">
-    <div class="drawer-page-header">
-      <button class="drawer-back-btn" id="backToHomeBtn" title="Back to Home">← Back to Drawers</button>
-      <h2 class="drawer-page-title" id="drawer-page-title"></h2>
+    <div class="drawer-search-container">
+      <div class="search-input-wrapper">
+        <input type="text" id="comment-search" class="comment-search-input" placeholder="Search cards...">
+        <button class="search-clear-btn" id="comment-search-clear" style="display: none;" title="Clear search">×</button>
+      </div>
     </div>
-    <div class="comment-header-wrapper">
-      <div class="comment-actions">
-        <div class="comment-search-wrapper">
-          <input type="text" id="comment-search" class="comment-search-input" placeholder="Search cards...">
-          <button class="search-clear-btn" id="comment-search-clear" style="display: none;" title="Clear search">×</button>
-        </div>
-        <button class="btn-compact" id="manageTagsBtn" title="Manage Tags">🏷️</button>
-        <button class="btn-compact btn-primary-compact" id="addCommentBtn" title="Add Card">+</button>
-      </div>
 
-      <div class="tag-filter-bar" id="tag-filter-bar">
-        <div class="tag-filter-header">
-          <button class="toggle-filters-btn" id="toggle-filters-btn" title="Toggle filters">▼</button>
-          <span class="filter-count" id="filter-count"></span>
-          <button class="clear-filters-btn" id="clear-filters-btn" style="display: none;">Clear</button>
-        </div>
-        <div class="tag-filters" id="tag-filters"></div>
+    <div class="add-comment-bank">
+      <button class="add-button" id="addCommentBtn">+ Add Card</button>
+    </div>
+
+    <div class="tag-filter-bar collapsed" id="tag-filter-bar">
+      <div class="tag-filter-header">
+        <button class="toggle-filters-btn" id="toggle-filters-btn" title="Toggle filters" style="transform: rotate(-90deg);">▼</button>
+        <span class="filter-count" id="filter-count"></span>
+        <button class="btn-compact" id="manageTagsBtn" title="Manage Tags">🏷️</button>
+        <button class="clear-filters-btn" id="clear-filters-btn" style="display: none;">Clear</button>
       </div>
+      <div class="tag-filters" id="tag-filters"></div>
     </div>
 
     <div class="comments-list-wrapper">
@@ -2047,18 +2353,18 @@ header {
     // Get preloaded drawers
     function getPreloadedCommentBanks() {
       return [
-        {"archived":false,"assignmentName":"Class Activities","comments":[{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":[],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"}],"tags":[{"color":"#16a085","id":"mhtnxr845ahe29ucwed","name":"Group Work"},{"color":"#2980b9","id":"mhtnxr84sl102glan3","name":"Discussion Prompts"},{"color":"#f39c12","id":"mhtnxr84gj0t2z2ke2","name":"Exercises"},{"color":"#c0392b","id":"mhtnxr84z2dxx8k58f","name":"Games"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Class Activities","comments":[{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":[],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"}],"tags":[{"color":"#16a085","id":"mhtnxr845ahe29ucwed","name":"Group Work"},{"color":"#2980b9","id":"mhtnxr84sl102glan3","name":"Discussion Prompts"},{"color":"#f39c12","id":"mhtnxr84gj0t2z2ke2","name":"Exercises"},{"color":"#c0392b","id":"mhtnxr84z2dxx8k58f","name":"Games"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
         {"archived":false,"assignmentName":"Digital Tools","comments":[{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"U even revise, bro?"},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of the UnJumble analog, in-class activity","link":"https://landfair.github.io/UnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Daily Puzzle"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Says/Does Worksheet Generator"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Say More Here"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Writing-center.org"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":["mhsbwvz5elnu3gz5hdb","mhsbx76cietl327h3pr"],"title":"EWP Writing Research Exchange"}],"tags":[{"color":"#6b2d8f","id":"mhsbwvz5elnu3gz5hdb","name":"Landfair"},{"color":"#1b6933","id":"mhsbx76cietl327h3pr","name":"EWP"},{"color":"#8f342d","id":"mhsbxf41elwnjwn4w46","name":"Zaretsky"},{"color":"#d94717","id":"mhsbxqezwjms7lc0tyg","name":"Lesson plan"},{"color":"#6b2d8f","id":"mhsc1qakgdjly1jblft","name":"Wojczuk"}]},
         {"archived":false,"assignmentName":"Faculty Resources","comments":[{"description":"EWP Guide to Making Feedback and Grading More Effective and Efficient","link":"https://sites.google.com/nyu.edu/ewp-resources/commenting-grading?authuser=0","tags":[],"title":"Commenting & Grading"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"Learning outcomes and parameters for all EXPOS courses","link":"https://wp.nyu.edu/fas-ewp/parameters/","tags":[],"title":"EWP Course Parameters"},{"description":"EWP Vocabulary for Writing","link":"https://wp.nyu.edu/fas-ewp/ewp-vocabulary-for-writing/","tags":[],"title":"EWP Vocabulary"},{"description":"Fall 2025","link":"https://drive.google.com/file/d/1g7e7pXIf3rl8GO_jl9bNx5oMgVKf7-h2/view","tags":[],"title":"EWP Faculty Handbook"},{"description":"Resources for antiracist pedagogy","link":"https://sites.google.com/nyu.edu/ewp-resources/antiracist-pedagogies?authuser=0","tags":[],"title":"Antiracist Pedagogies"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator"},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"Syllabus Template & Calendars","link":"https://wp.nyu.edu/fas-ewp/ewp-teaching-resources/syllabus-template-calendars/","tags":[],"title":"EWP Syllabus Templates"},{"description":"Last updated Dec 2, 2022","link":"https://wp.nyu.edu/fas-ewp/ewp-bylaws/","tags":[],"title":"EWP Bylaws"},{"description":"Continuously updated rosters of EWP committees, with term dates.","link":"https://docs.google.com/spreadsheets/d/1q4JwdlvxW2TPY8MJYdaZ7iqMkB_P7PJHBYKgCiKVjhw/edit?gid=1362628826#gid=1362628826","tags":["mhtnxr84iswg5u99ali"],"title":"EWP Committee Members"},{"description":"Names of EWP faculty leadership positions and their current occupants, with term dates","link":"https://wp.nyu.edu/fas-ewp/rotating-faculty-leadership-positions/#outreach","tags":[],"title":"Faculty Leadership Positions"},{"description":"Syllabi shared by EWP faculty, organized division","link":"https://sites.google.com/nyu.edu/ewp-resources/shared-syllabi?authuser=0","tags":[],"title":"Shared Syllabi"},{"description":"These resources and recommendations highlight promising practices for making feedback and grading more effective and efficient. We know feedback and grading take more time and energy than other teaching activities, and we also know they are essential stages in the writing process that help students develop their ability to assess, revise, and enhance their work. The CAC developed these resources through two years of studying EWP student and faculty perspectives, EWP faculty approaches, and research from writing studies and other fields. Members included Anthony Carelli, Suzanne Cope, Gita DasBender, Jameson Fitzpatrick, David Foley, Michelle McSwiggan Kelly, Nate Mickelson, Brian Schwartz, and Wil Weitzel.","link":"https://docs.google.com/document/d/1KjzrONYEJt-ZEM-JAsU9iAeus-Y8XLUxiTT-754Yxd0/edit?tab=t.0","tags":[],"title":"Making Feedback and Grading More Efficient and Effective"},{"description":"information about course and syllabus policies, including Program Vocabulary & Student Learning Outcomes\nCourse Parameters\nCourse Syllabus\nCourse Texts\nClass Attendance\nExpectations for Work Students Complete Outside of Class\nGrades of Incomplete\nGrading Standards\nGrading Criteria\nConversion Scale for Translating %s and Letter Grades and GPA Equivalents \nValuing Process Work in Course Grade Breakdowns\nDisability Accommodations\nPlagiarism\nStudents in Difficulty\nIssues of Attendance & Timely Completion of Work \nGrade Disputes","link":"https://wp.nyu.edu/fas-ewp/course-and-syllabus-policies/#plagiarism","tags":["mhtnxr84iswg5u99ali","mhtnxr84un3aj7zaic"],"title":"Course and Syllabus Policies"},{"description":"Faculty forms, including Leave of Absence, Workload Relief, Expense pre-approval form, Faculty Reimbursement Submission Form\nReimbursement Cover Sheet, and \nMissing Receipt","link":"https://wp.nyu.edu/fas-ewp/forms/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Forms"},{"description":"RESOURCES FOR SUPPORT AND SAFETY, including SUICIDE AND CRISIS\n\nNYU Wellness: 24/7 support via phone (212) 443-9999, chat, or app in 6 languages\nSame-day urgent care appointments available\n\n988Lifeline: 24/7, call, text, or chat, also in Spanish\n\n*The BlackLine, a service from BEAM, the Black Emotional and Mental Health Collective\n(800) 604-5841 \n\nThe Blue Dove, A Jewish mental health/crisis support organization that values tikkun olam, or \"repairing the world.\" Their local resource is Amudim.\n\n*Strong Hearts Native Helpline: (844) 762-8483\n\nBIAS ISSUES\n\nNYU Bias Hotline: (212) 998-2277 (not 24/7; may take 48 hours to respond)\n\n*If you are targeted for being of Arab/Muslim descent, wearing a keffiyeh, etc., contact FSJP\n\nLGBTQ+\n\nThe Trevor Project: click link for chat, text, or phone 24/7\n\n*The Ali Forney Center: (212) 206-0574 Ext 100; 24-7 drop-in center at 307 W. 38th Street, 3rd Floor\n\n*Sylvia's Place: (212) 629-7440 An emergency night shelter for LGBTQ+ ages 16-23 at 446 W. 36th Street\n\n*Trans Lifeline: (877) 565-8860 (not 24/7)\n\n*NYC Gay and Lesbian Anti-Violence Project: (212) 714-1141, 24/7, Spanish and English\n\nA guide to help transgender people prepare for potential anti-trans government action\n\nIMMIGRATION ISSUES\n\nNational Network For Immigrant and Refugee Rights: A resource for all nationalities and gender identities who have concerns about their immigration/refugee status and/or safety.\n\nAction NYC: (800) 354-0365\n\nCitizenship Now: (212) 652-2071\n\n*NYU Law Immigrant Defense Initiative (212) 998-6640. \n\nImmigration Law Help – online directory of free/low cost immigrant legal aid\n\n*CUNY CLEAR (Creating Law Enforcement Accountability and Responsibility)\n(718) 340-4558 \nA CUNY School of Law project \"to address the unmet legal needs of Muslim, Arab, South Asian, and other communities in the NYC area that are particularly affected by national security and counter-terrorism policies and practices.\" \n\nSEXUAL ASSAULT AND HARRASSMENT; DOMESTIC AND DATING VIOLENCE\n\nRAINN (Rape, Abuse, and Incest National Network): (800) 656-4673 24/7, Spanish and English \n\n*Safe Horizons: 1 (800) 621-4673 24/7; In multiple languages\n\nHATE CRIMES\n\n*Safe Horizons (866) 689-HELP (4357) 24/7; in multiple languages\n\nStop AAPI Hate: A coalition dedicated to ending racism and discrimination against Asian Americans and Pacific Islanders. \n\nFrom Capital B: \"Strategies for Black Americans to Nurture Mental Health After the Election\"\n\nSHELTER\n\nThe Emergency Shelter Network, operating in all five NYC boroughs","link":"https://docs.google.com/document/d/1zVl8TAkkb5RvNuqbSVtIPu7cCBWv8qszbRk5Gya1YZo/edit?tab=t.0","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Safety and Support Resources"},{"description":"EWP administrative procedures, including:  Administrative Procedures\nAlbert Faculty Center\nAnnual Merit Increase\nCopyright Policy at NYU\nCopy Procedure / Printer Access\nCourse Evaluations\nDisability Accommodations\nFERPA: University Compliance\nLaptops for Faculty\nLeaves of Absence\nLeaves to Pursue Scholarly or Creative Work\nMercer Street Invitations\nNYU's Policy on Sexual Misconduct, Relationship Violence, and Stalking\nOffice Space\nOffice Supplies\nReappointment & Promotion\nResearch Funds & Reimbursement Process\nRotating Faculty Leadership Positions\nStudent Grade Appeals\nTeaching Assignments","link":"https://wp.nyu.edu/fas-ewp/administrative-procedures/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Administrative Procedures"}],"tags":[{"color":"#6b2d8f","id":"mhtnxr84iswg5u99ali","name":"Department"},{"color":"#3498db","id":"mhtnxr84sy9soky0bi","name":"Professional Development"},{"color":"#e74c3c","id":"mhtnxr84un3aj7zaic","name":"Policies"},{"color":"#2ecc71","id":"mhtnxr84tzsdiahlbs","name":"Tools"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"}]},
-        {"archived":false,"assignmentName":"Handouts","comments":[{"description":"Mark Gaipa's cartoon sketches describe ways students can orient themselves with their sources.","link":"https://docs.google.com/document/d/1fWTqDmIJxOEcQXPln5LZ9zgpVPfIwtNQ/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":[],"title":"8 Strategies for Critically Engaging Secondary Sources"},{"description":"Some templates that model ways to engage critically with texts","link":"https://docs.google.com/document/d/1QnArCHLJzb0cH7W18zLVjXENTbf_Svg1/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":["mhrtpntfn456fml0vk"],"title":"Critical Moves: Ways of Critically Assessing Texts"},{"description":"A handout that provides models of sentences that describe or establish a writers motivations for research, argumentation, or close-reading.","link":"https://docs.google.com/document/d/1_lZoqLrp3qdkeNwZ5RsDNafeOh524pNOOEwV-5akdQU/edit?usp=sharing","tags":[],"title":"Motivating Sentences"},{"description":"Excerpts from Booth's The Craft of Research (2008).","link":"https://docs.google.com/document/d/1bdV72xn8aMBkrXG-r1sDmHFSSYDA9z8MY4dMvZvPY9U/edit?usp=sharing","tags":[],"title":"Establishing a Line of Inquiry"},{"description":"Handout teaching textual incorporation in order to avoid plagiarism","link":"https://docs.google.com/document/d/1Hik9ojEPym7LAL1TFf_X7KyIIke7adbD8K_hxG1ibyQ/edit?usp=sharing","tags":[],"title":"Textual Incorporation"},{"description":"This handout from Jono Mischkot teaches students how to incorporate and engage with textual evidence.","link":"https://docs.google.com/document/d/1fN_9NlaQUlL6gH0aoOVAfNYo9KK8hkPNhkiSRUUEw7E/edit?usp=sharing","tags":["mhscsodcdaeay6chs6"],"title":"Engaging with Evidence"}],"tags":[{"color":"#9b59b6","id":"mhrtpntffpc9pervcjt","name":"Style Guide"},{"color":"#3498db","id":"mhrtpntfn456fml0vk","name":"Templates"},{"color":"#2ecc71","id":"mhrtpntfnrid00we6hk","name":"Examples"},{"color":"#e67e22","id":"mhrtpntf09h7nxub9md2","name":"Rubrics"},{"color":"#e74c3c","id":"mhrtpntfkpd37rpxayj","name":"Important"},{"color":"#3498db","id":"mhrtpntf2sb62sgnpvg","name":"To Read"},{"color":"#9b59b6","id":"mhrtpntfyyaerrbg7zi","name":"Reference"},{"color":"#2ecc71","id":"mhrtpntf1ldi8pl488u","name":"Current Semester"},{"color":"#95a5a6","id":"mhrtpntfa7cfpeibaxv","name":"Archive"},{"color":"#6b2d8f","id":"mhscsodcdaeay6chs6","name":"Mischkot"}]},
-        {"archived":true,"assignmentName":"Major Assignments","comments":[],"tags":[{"color":"#8e44ad","id":"mhtnxr844hbs51a95oa","name":"Research Paper"},{"color":"#c0392b","id":"mhtnxr84v6qk8so6u6s","name":"Final Project"},{"color":"#2980b9","id":"mhtnxr84fcz18ei00f","name":"Presentation"},{"color":"#16a085","id":"mhtnxr84x1l3iskbynf","name":"Portfolio"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
-        {"archived":true,"assignmentName":"Minor Assignments","comments":[],"tags":[{"color":"#27ae60","id":"mhtnxr8401qr95aywbgg","name":"Discussion"},{"color":"#f39c12","id":"mhtnxr84g5bduftxxw4","name":"Reflection"},{"color":"#8e44ad","id":"mhtnxr84g2t6nxgu5bi","name":"Response Paper"},{"color":"#e74c3c","id":"mhtnxr84v17htrpzxnt","name":"Quiz"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
-        {"archived":false,"assignmentName":"Readings","comments":[{"description":"E-reader for Tandon Writing Courses","link":"https://www.zotero.org/groups/2914093/ewp_tandon_reader/items/3PC2X3KQ/library","tags":[],"title":"Tandon Reader"},{"description":"E-reader for Tisch EWP courses","link":"https://www.zotero.org/groups/2914099/ewp_tisch_reader/library","tags":[],"title":"Tisch Reader"},{"description":"E-Reader for EWP courses","link":"https://www.zotero.org/groups/2335188/a_digital_anthology_for_writers/library","tags":[],"title":"Digital Anthology for Writers"},{"description":"EWP's Journal of Undergraduate Writing","link":"https://wp.nyu.edu/mercerstreet/","tags":[],"title":"Mercer Street"}],"tags":[{"color":"#c0392b","id":"mhtnxr84sbuu09tuemc","name":"Required"},{"color":"#f39c12","id":"mhtnxr8472gkr5569jd","name":"Recommended"},{"color":"#3498db","id":"mhtnxr84a7yb6rcpupi","name":"Supplemental"},{"color":"#9b59b6","id":"mhtnxr84er5ufg8qk3k","name":"Articles"},{"color":"#16a085","id":"mhtnxr84ist0u43oep","name":"Books"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
-        {"archived":false,"assignmentName":"Reimbursement","comments":[{"description":"List purchases to be reiumbursed","link":"https://docs.google.com/spreadsheets/d/1pqj7COOOzFmlCJ4LoXEDxkeBJ90991G_kdRuQ9iDW70/edit#gid=0","tags":[],"title":"Reimbursement coversheet"},{"description":"Use this form to send Reimbursement forms to Richard and Simone","link":"https://www.google.com/url?q=https://forms.gle/irx6BS8QR2AsS56U6&sa=D&source=editors&ust=1762736140594528&usg=AOvVaw1DijQ9xDo71Z5RUtLi4qgK","tags":[],"title":"Reimbursement Google Form"}],"tags":[{"color":"#3498DB","id":"mhsdeluiwrsf62q5n0g","name":"Evidence"},{"color":"#2ECC71","id":"mhsdeluig09f0gziee5","name":"Organization"},{"color":"#9B59B6","id":"mhsdelui8xx5hp513qv","name":"Intro"},{"color":"#8E44AD","id":"mhsdeluidqvxmlco8ow","name":"Conclusion"},{"color":"#E74C3C","id":"mhsdeluir5amv4zwfgm","name":"Voice"},{"color":"#FFD700","id":"mhsdelui5neam98xwqx","name":"Praise"},{"color":"#E67E22","id":"mhsdelui8tci8sd63ii","name":"Critical"},{"color":"#1ABC9C","id":"mhsdelui176pr0kh0lp","name":"Salutation"},{"color":"#16A085","id":"mhsdelui4gd1fs8cjrc","name":"Valediction"},{"color":"#C0392B","id":"mhsdelui7809hl6uldw","name":"Stakes"},{"color":"#D35400","id":"mhsdelui8fpurrvsuns","name":"Problem"},{"color":"#34495E","id":"mhsdeluijkybyc5ti8","name":"Ethos"},{"color":"#27AE60","id":"mhsdeluicbfhjzg1elg","name":"Sayback"}]},
-        {"archived":true,"assignmentName":"Research","comments":[],"tags":[{"color":"#8e44ad","id":"mhtp68rbdq10ie872vc","name":"Databases"},{"color":"#2980b9","id":"mhtp68rbc13dcbdlt3s","name":"Journals"},{"color":"#16a085","id":"mhtp68rbtcwqhr5s1wc","name":"Citation Tools"},{"color":"#c0392b","id":"mhtp68rbv6brt1kpaf","name":"Primary Sources"},{"color":"#f39c12","id":"mhtp68rb52d4llkq1zx","name":"Secondary Sources"},{"color":"#e74c3c","id":"mhtp68rbtj4m9xwr7l","name":"Important"},{"color":"#3498db","id":"mhtp68rbdhsgumn5yq","name":"To Read"},{"color":"#9b59b6","id":"mhtp68rbytg2hrygtht","name":"Reference"},{"color":"#2ecc71","id":"mhtp68rb2sxg2saer53","name":"Current Semester"},{"color":"#95a5a6","id":"mhtp68rbdy6v67256p7","name":"Archive"}]},
-        {"archived":false,"assignmentName":"Slide Decks","comments":[{"description":"Using stasis theory to distinguish among five classes of claims and questions.","link":"https://docs.google.com/presentation/d/1fz4c6aIceYhL3TG_-_1yah46QCV6JSFZLkhnFIyLSL0/edit?usp=sharing","tags":[],"title":"Stasis Theory Lesson"},{"description":"Background, lit review, and emerging best practices","link":"https://docs.google.com/presentation/d/1u24zndaiNnzttdMicW09ejTIXmHZZUg3ewcYU_E_7Ks/edit?usp=sharing","tags":[],"title":"Navigating AI-Detection Tools"},{"description":"Research backed principles and strategies to guide our peer-review practices","link":"https://docs.google.com/presentation/d/1Ss7GLn25vqZi7sPTQBnKcqC1n7aujSWkNFMlO5616eI/edit?usp=sharing","tags":[],"title":"Peer-Review Training"},{"description":"Using says/does analysis to get critical distance needed to revise effectively","link":"https://docs.google.com/presentation/d/1yn9w7axwd5c5h_ClF9QcJjKyUSzn40tDyQOfuQh484Q/edit?usp=sharing","tags":[],"title":"Critical Distance Lesson"},{"description":"How to read a peer-reviewed science journal article google slide deck","link":"https://docs.google.com/presentation/d/1z2e8ziyok3aaHNutAld1KAas_HiSDoF2CqZxCNP9t24/edit?usp=sharing","tags":[],"title":"How to Read a Science Journal Article Lesson"},{"description":"How to work more efficiently, and feel more confident in your final products","link":"https://docs.google.com/presentation/d/1qnecHjiU0mbd7--sOSXW6r0CmTW3vf3p4ePjm9P9HnI/edit?usp=sharing","tags":[],"title":"Time Management Lessons"}],"tags":[{"color":"#3498DB","id":"mhtov5pyaikxcgocdbu","name":"Evidence"},{"color":"#2ECC71","id":"mhtov5py1vyq3ig7hkt","name":"Organization"},{"color":"#9B59B6","id":"mhtov5py6zvwa4r3f2u","name":"Intro"},{"color":"#8E44AD","id":"mhtov5pygoda18bbb4g","name":"Conclusion"},{"color":"#E74C3C","id":"mhtov5pygec4cony4dl","name":"Voice"},{"color":"#FFD700","id":"mhtov5pyz4c0ibv7yjq","name":"Praise"},{"color":"#E67E22","id":"mhtov5py1lhbiyrzxnn","name":"Critical"},{"color":"#1ABC9C","id":"mhtov5pyhqzg4r6hi5f","name":"Salutation"},{"color":"#16A085","id":"mhtov5pyuf6jskukaok","name":"Valediction"},{"color":"#C0392B","id":"mhtov5py127mzd1veax","name":"Stakes"},{"color":"#D35400","id":"mhtov5pyq6kpgv997u","name":"Problem"},{"color":"#34495E","id":"mhtov5py93tj6kcalmr","name":"Ethos"},{"color":"#27AE60","id":"mhtov5pyr9f80prsry","name":"Sayback"}]},
-        {"archived":false,"assignmentName":"Student Resources","comments":[{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":[],"title":"U even revise, bro?"}],"tags":[{"color":"#1abc9c","id":"mhtnxr84q7flzipray","name":"Academic Support"},{"color":"#3498db","id":"mhtnxr84xu8ana8fcnl","name":"Writing Center"},{"color":"#9b59b6","id":"mhtnxr84s54gewmem6m","name":"Tutoring"},{"color":"#e67e22","id":"mhtnxr84ah4iceaqfbp","name":"Campus Services"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
-        {"archived":false,"assignmentName":"Writing Research","comments":[{"description":"","link":"https://wp.nyu.edu/fas-ewp/further-reading/","tags":[],"title":"Antiracist pedagogies further readings"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":[],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":[],"title":"EWP Writing Research Exchange"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"FAQ, readings, and other resources re: student accomodations","link":"https://docs.google.com/document/d/1aZyOp5bnjQO0RyLu5ffKBQim6oIiEv02h_Pn3xxd8YA/edit?tab=t.0#heading=h.e5sw6u4vhit0","tags":[],"title":"On Accomodations"},{"description":"Scholarship and resources for teaching international sections","link":"https://drive.google.com/drive/folders/1FymTFmIEHH1bEyhNIe3N0aDw4OriAlHi","tags":[],"title":"Research for Teaching Writing to Nonnative English Speakers"}],"tags":[{"color":"#3498DB","id":"mhtnybtipwchyc6m5wn","name":"Evidence"},{"color":"#2ECC71","id":"mhtnybtioo3zd8xgth","name":"Organization"},{"color":"#9B59B6","id":"mhtnybtifd7sqx3pfuw","name":"Intro"},{"color":"#8E44AD","id":"mhtnybti5ywsitnmdnj","name":"Conclusion"},{"color":"#E74C3C","id":"mhtnybtiu4hwjxtoj0g","name":"Voice"},{"color":"#FFD700","id":"mhtnybtivtyaalvc6kp","name":"Praise"},{"color":"#E67E22","id":"mhtnybti0y3k2zi7dy0k","name":"Critical"},{"color":"#1ABC9C","id":"mhtnybtirahlynppwol","name":"Salutation"},{"color":"#16A085","id":"mhtnybti795fq3mbn9x","name":"Valediction"},{"color":"#C0392B","id":"mhtnybtijax1obnkump","name":"Stakes"},{"color":"#D35400","id":"mhtnybtiit6uimm1tgo","name":"Problem"},{"color":"#34495E","id":"mhtnybti2zjjth9azo8","name":"Ethos"},{"color":"#27AE60","id":"mhtnybtiysqkfyws7db","name":"Sayback"}]}
+        {"archived":false,"assignmentName":"Handouts","comments":[{"description":"Mark Gaipa's cartoon sketches describe ways students can orient themselves with their sources.","link":"https://docs.google.com/document/d/1fWTqDmIJxOEcQXPln5LZ9zgpVPfIwtNQ/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":[],"title":"8 Strategies for Critically Engaging Secondary Sources"},{"description":"Some templates that model ways to engage critically with texts","link":"https://docs.google.com/document/d/1QnArCHLJzb0cH7W18zLVjXENTbf_Svg1/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":["mhrtpntfn456fml0vk"],"title":"Critical Moves: Ways of Critically Assessing Texts"},{"description":"A handout that provides models of sentences that describe or establish a writers motivations for research, argumentation, or close-reading.","link":"https://docs.google.com/document/d/1_lZoqLrp3qdkeNwZ5RsDNafeOh524pNOOEwV-5akdQU/edit?usp=sharing","tags":[],"title":"Motivating Sentences"},{"description":"Excerpts from Booth's The Craft of Research (2008).","link":"https://docs.google.com/document/d/1bdV72xn8aMBkrXG-r1sDmHFSSYDA9z8MY4dMvZvPY9U/edit?usp=sharing","tags":[],"title":"Establishing a Line of Inquiry"},{"description":"Handout teaching textual incorporation in order to avoid plagiarism","link":"https://docs.google.com/document/d/1Hik9ojEPym7LAL1TFf_X7KyIIke7adbD8K_hxG1ibyQ/edit?usp=sharing","tags":[],"title":"Textual Incorporation"},{"description":"This handout from Jono Mischkot teaches students how to incorporate and engage with textual evidence.","link":"https://docs.google.com/document/d/1fN_9NlaQUlL6gH0aoOVAfNYo9KK8hkPNhkiSRUUEw7E/edit?usp=sharing","tags":["mhscsodcdaeay6chs6"],"title":"Engaging with Evidence"}],"tags":[{"color":"#9b59b6","id":"mhrtpntffpc9pervcjt","name":"Style Guide"},{"color":"#3498db","id":"mhrtpntfn456fml0vk","name":"Templates"},{"color":"#2ecc71","id":"mhrtpntfnrid00we6hk","name":"Examples"},{"color":"#e67e22","id":"mhrtpntf09h7nxub9md2","name":"Rubrics"},{"color":"#e74c3c","id":"mhrtpntfkpd37rpxayj","name":"Important"},{"color":"#3498db","id":"mhrtpntf2sb62sgnpvg","name":"To Read"},{"color":"#9b59b6","id":"mhrtpntfyyaerrbg7zi","name":"Reference"},{"color":"#2ecc71","id":"mhrtpntf1ldi8pl488u","name":"Current Semester"},{"color":"#6b2d8f","id":"mhscsodcdaeay6chs6","name":"Mischkot"}]},
+        {"archived":true,"assignmentName":"Major Assignments","comments":[],"tags":[{"color":"#8e44ad","id":"mhtnxr844hbs51a95oa","name":"Research Paper"},{"color":"#c0392b","id":"mhtnxr84v6qk8so6u6s","name":"Final Project"},{"color":"#2980b9","id":"mhtnxr84fcz18ei00f","name":"Presentation"},{"color":"#16a085","id":"mhtnxr84x1l3iskbynf","name":"Portfolio"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
+        {"archived":true,"assignmentName":"Minor Assignments","comments":[],"tags":[{"color":"#27ae60","id":"mhtnxr8401qr95aywbgg","name":"Discussion"},{"color":"#f39c12","id":"mhtnxr84g5bduftxxw4","name":"Reflection"},{"color":"#8e44ad","id":"mhtnxr84g2t6nxgu5bi","name":"Response Paper"},{"color":"#e74c3c","id":"mhtnxr84v17htrpzxnt","name":"Quiz"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
+        {"archived":false,"assignmentName":"Readings","comments":[{"description":"E-reader for Tandon Writing Courses","link":"https://www.zotero.org/groups/2914093/ewp_tandon_reader/items/3PC2X3KQ/library","tags":[],"title":"Tandon Reader"},{"description":"E-reader for Tisch EWP courses","link":"https://www.zotero.org/groups/2914099/ewp_tisch_reader/library","tags":[],"title":"Tisch Reader"},{"description":"E-Reader for EWP courses","link":"https://www.zotero.org/groups/2335188/a_digital_anthology_for_writers/library","tags":[],"title":"Digital Anthology for Writers"},{"description":"EWP's Journal of Undergraduate Writing","link":"https://wp.nyu.edu/mercerstreet/","tags":[],"title":"Mercer Street"}],"tags":[{"color":"#c0392b","id":"mhtnxr84sbuu09tuemc","name":"Required"},{"color":"#f39c12","id":"mhtnxr8472gkr5569jd","name":"Recommended"},{"color":"#3498db","id":"mhtnxr84a7yb6rcpupi","name":"Supplemental"},{"color":"#9b59b6","id":"mhtnxr84er5ufg8qk3k","name":"Articles"},{"color":"#16a085","id":"mhtnxr84ist0u43oep","name":"Books"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
+        {"archived":false,"assignmentName":"Reimbursement","comments":[{"description":"List purchases to be reiumbursed","link":"https://docs.google.com/spreadsheets/d/1pqj7COOOzFmlCJ4LoXEDxkeBJ90991G_kdRuQ9iDW70/edit#gid=0","tags":[],"title":"Reimbursement coversheet"},{"description":"Use this form to send Reimbursement forms to Richard and Simone","link":"https://www.google.com/url?q=https://forms.gle/irx6BS8QR2AsS56U6&sa=D&source=editors&ust=1762736140594528&usg=AOvVaw1DijQ9xDo71Z5RUtLi4qgK","tags":[],"title":"Reimbursement Google Form"}],"tags":[{"color":"#27ae60","id":"mhsdeluiwrsf62q5n0g","name":"Forms"},{"color":"#3498db","id":"mhsdeluig09f0gziee5","name":"Finance"},{"color":"#9b59b6","id":"mhsdelui8xx5hp513qv","name":"Administrative"},{"color":"#e67e22","id":"mhsdeluidqvxmlco8ow","name":"Expenses"},{"color":"#c0392b","id":"mhsdeluir5amv4zwfgm","name":"Important"}]},
+        {"archived":true,"assignmentName":"Research","comments":[],"tags":[{"color":"#8e44ad","id":"mhtp68rbdq10ie872vc","name":"Databases"},{"color":"#2980b9","id":"mhtp68rbc13dcbdlt3s","name":"Journals"},{"color":"#16a085","id":"mhtp68rbtcwqhr5s1wc","name":"Citation Tools"},{"color":"#c0392b","id":"mhtp68rbv6brt1kpaf","name":"Primary Sources"},{"color":"#f39c12","id":"mhtp68rb52d4llkq1zx","name":"Secondary Sources"},{"color":"#e74c3c","id":"mhtp68rbtj4m9xwr7l","name":"Important"},{"color":"#3498db","id":"mhtp68rbdhsgumn5yq","name":"To Read"},{"color":"#9b59b6","id":"mhtp68rbytg2hrygtht","name":"Reference"},{"color":"#2ecc71","id":"mhtp68rb2sxg2saer53","name":"Current Semester"}]},
+        {"archived":false,"assignmentName":"Slide Decks","comments":[{"description":"Using stasis theory to distinguish among five classes of claims and questions.","link":"https://docs.google.com/presentation/d/1fz4c6aIceYhL3TG_-_1yah46QCV6JSFZLkhnFIyLSL0/edit?usp=sharing","tags":[],"title":"Stasis Theory Lesson"},{"description":"Background, lit review, and emerging best practices","link":"https://docs.google.com/presentation/d/1u24zndaiNnzttdMicW09ejTIXmHZZUg3ewcYU_E_7Ks/edit?usp=sharing","tags":[],"title":"Navigating AI-Detection Tools"},{"description":"Research backed principles and strategies to guide our peer-review practices","link":"https://docs.google.com/presentation/d/1Ss7GLn25vqZi7sPTQBnKcqC1n7aujSWkNFMlO5616eI/edit?usp=sharing","tags":[],"title":"Peer-Review Training"},{"description":"Using says/does analysis to get critical distance needed to revise effectively","link":"https://docs.google.com/presentation/d/1yn9w7axwd5c5h_ClF9QcJjKyUSzn40tDyQOfuQh484Q/edit?usp=sharing","tags":[],"title":"Critical Distance Lesson"},{"description":"How to read a peer-reviewed science journal article google slide deck","link":"https://docs.google.com/presentation/d/1z2e8ziyok3aaHNutAld1KAas_HiSDoF2CqZxCNP9t24/edit?usp=sharing","tags":[],"title":"How to Read a Science Journal Article Lesson"},{"description":"How to work more efficiently, and feel more confident in your final products","link":"https://docs.google.com/presentation/d/1qnecHjiU0mbd7--sOSXW6r0CmTW3vf3p4ePjm9P9HnI/edit?usp=sharing","tags":[],"title":"Time Management Lessons"}],"tags":[{"color":"#3498db","id":"mhtov5pyaikxcgocdbu","name":"Lesson Plans"},{"color":"#e74c3c","id":"mhtov5py1vyq3ig7hkt","name":"AI & Technology"},{"color":"#9b59b6","id":"mhtov5py6zvwa4r3f2u","name":"Peer Review"},{"color":"#2ecc71","id":"mhtov5pygoda18bbb4g","name":"Reading Strategies"},{"color":"#f39c12","id":"mhtov5pygec4cony4dl","name":"Revision"},{"color":"#16a085","id":"mhtov5pyz4c0ibv7yjq","name":"Time Management"},{"color":"#e67e22","id":"mhtov5py1lhbiyrzxnn","name":"Critical Thinking"},{"color":"#3498db","id":"mhtov5pyhqzg4r6hi5f","name":"Pedagogy"},{"color":"#c0392b","id":"mhtov5pyq6kpgv997u","name":"Important"}]},
+        {"archived":false,"assignmentName":"Student Resources","comments":[{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":[],"title":"U even revise, bro?"}],"tags":[{"color":"#1abc9c","id":"mhtnxr84q7flzipray","name":"Academic Support"},{"color":"#3498db","id":"mhtnxr84xu8ana8fcnl","name":"Writing Center"},{"color":"#9b59b6","id":"mhtnxr84s54gewmem6m","name":"Tutoring"},{"color":"#e67e22","id":"mhtnxr84ah4iceaqfbp","name":"Campus Services"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
+        {"archived":false,"assignmentName":"Writing Research","comments":[{"description":"","link":"https://wp.nyu.edu/fas-ewp/further-reading/","tags":[],"title":"Antiracist pedagogies further readings"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":[],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":[],"title":"EWP Writing Research Exchange"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"FAQ, readings, and other resources re: student accomodations","link":"https://docs.google.com/document/d/1aZyOp5bnjQO0RyLu5ffKBQim6oIiEv02h_Pn3xxd8YA/edit?tab=t.0#heading=h.e5sw6u4vhit0","tags":[],"title":"On Accomodations"},{"description":"Scholarship and resources for teaching international sections","link":"https://drive.google.com/drive/folders/1FymTFmIEHH1bEyhNIe3N0aDw4OriAlHi","tags":[],"title":"Research for Teaching Writing to Nonnative English Speakers"}],"tags":[{"color":"#9b59b6","id":"mhtnybtipwchyc6m5wn","name":"Pedagogy"},{"color":"#3498db","id":"mhtnybtioo3zd8xgth","name":"AI in Education"},{"color":"#2ecc71","id":"mhtnybtifd7sqx3pfuw","name":"Antiracist Pedagogy"},{"color":"#e67e22","id":"mhtnybti5ywsitnmdnj","name":"Inclusive Teaching"},{"color":"#16a085","id":"mhtnybtiu4hwjxtoj0g","name":"Multilingual Writers"},{"color":"#f39c12","id":"mhtnybtivtyaalvc6kp","name":"Accommodations"},{"color":"#c0392b","id":"mhtnybti0y3k2zi7dy0k","name":"Important"},{"color":"#3498db","id":"mhtnybtirahlynppwol","name":"To Read"}]}
       ];
     }
 
@@ -2100,6 +2406,9 @@ header {
       document.querySelector('.container').style.display = 'block';
       currentCommentBankIndex = -1;
 
+      // Reset header title
+      document.getElementById('main-title').textContent = 'Drawers';
+
       // Update URL to home
       if (updateHistory) {
         history.pushState(null, '', window.location.pathname);
@@ -2115,8 +2424,8 @@ header {
       document.getElementById('comment-container').style.display = 'block';
       document.querySelector('.container').style.display = 'none';
 
-      // Set drawer title in the content area
-      document.getElementById('drawer-page-title').textContent = bank.assignmentName;
+      // Update header title to show navigation breadcrumb
+      document.getElementById('main-title').innerHTML = `Drawers <span style="font-weight: 400;">→ ${bank.assignmentName}</span>`;
 
       // Update search placeholder with drawer name
       document.getElementById('comment-search').placeholder = `Search within ${bank.assignmentName}`;
@@ -2124,6 +2433,12 @@ header {
       activeTagFilters = [];
       searchQuery = '';
       document.getElementById('comment-search').value = '';
+
+      // Reset tag filter state
+      const tagFilterBar = document.getElementById('tag-filter-bar');
+      const toggleBtn = document.getElementById('toggle-filters-btn');
+      tagFilterBar.classList.remove('collapsed');
+      toggleBtn.style.transform = 'rotate(0deg)';
 
       displayComments(bank.comments);
       displayTagFilters();
@@ -2140,6 +2455,9 @@ header {
       document.getElementById('comment-container').style.display = 'none';
       document.getElementById('archive-container').style.display = 'block';
       document.querySelector('.container').style.display = 'none';
+
+      // Update header title
+      document.getElementById('main-title').innerHTML = 'Drawers <span style="font-weight: 400;">→ Archive</span>';
 
       displayArchivedDrawers();
 
@@ -2158,7 +2476,6 @@ header {
       if (archivedDrawers.length === 0) {
         list.innerHTML = `
           <div class="empty-state">
-            <div class="empty-state-icon">📦</div>
             <h3>No archived drawers</h3>
             <p>Archived drawers will appear here</p>
           </div>
@@ -2221,7 +2538,7 @@ header {
       drawerToArchiveIndex = index;
       const drawerName = commentBanks[index].assignmentName;
       document.getElementById('archive-drawer-name').textContent = `"${drawerName}"`;
-      document.getElementById('archive-confirm-popup').style.display = 'block';
+      document.getElementById('archive-confirm-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     }
 
@@ -2229,6 +2546,78 @@ header {
       document.getElementById('archive-confirm-popup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
       drawerToArchiveIndex = -1;
+    }
+
+    let drawerToShareIndex = -1;
+
+    function showSharePopup(index) {
+      drawerToShareIndex = index;
+      const drawerName = commentBanks[index].assignmentName;
+      document.getElementById('share-drawer-name').textContent = drawerName;
+      document.getElementById('share-popup').style.display = 'flex';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideSharePopup() {
+      document.getElementById('share-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      drawerToShareIndex = -1;
+    }
+
+    function shareDownloadDrawer() {
+      if (drawerToShareIndex !== -1) {
+        downloadDrawer(drawerToShareIndex);
+        hideSharePopup();
+      }
+    }
+
+    function shareCopyJson() {
+      if (drawerToShareIndex !== -1) {
+        const bank = commentBanks[drawerToShareIndex];
+        const json = JSON.stringify(bank, null, 2);
+
+        navigator.clipboard.writeText(json).then(() => {
+          // Show success feedback
+          const btn = document.getElementById('shareCopyJsonBtn');
+          const originalText = btn.querySelector('.share-option-title').textContent;
+          btn.querySelector('.share-option-title').textContent = 'Copied!';
+          btn.style.borderColor = '#2ecc71';
+          btn.style.background = '#d5f4e6';
+
+          setTimeout(() => {
+            btn.querySelector('.share-option-title').textContent = originalText;
+            btn.style.borderColor = '';
+            btn.style.background = '';
+          }, 2000);
+        }).catch(err => {
+          alert('Failed to copy to clipboard');
+          console.error('Copy failed:', err);
+        });
+      }
+    }
+
+    function shareViaEmail() {
+      if (drawerToShareIndex !== -1) {
+        const bank = commentBanks[drawerToShareIndex];
+        const drawerName = bank.assignmentName;
+        const cardCount = bank.comments.length;
+
+        const subject = encodeURIComponent(`Drawers: ${drawerName}`);
+        const body = encodeURIComponent(
+          `I'd like to share this drawer with you: "${drawerName}"\n\n` +
+          `This drawer contains ${cardCount} card${cardCount !== 1 ? 's' : ''}.\n\n` +
+          `To import this drawer:\n` +
+          `1. Download the attached file (or copy the .drawer file data below)\n` +
+          `2. Open Drawers at https://your-drawers-url.com\n` +
+          `3. Click Options (⚙️) → Upload Drawer\n` +
+          `4. Select the .drawer file or paste the .drawer file data\n\n` +
+          `---\n\n` +
+          `.drawer File Data:\n${JSON.stringify(bank, null, 2)}`
+        );
+
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        hideSharePopup();
+      }
     }
 
     function confirmArchiveDrawer() {
@@ -2324,15 +2713,25 @@ header {
         const actions = document.createElement('div');
         actions.className = 'comment-bank-actions';
 
+        const shareBtn = document.createElement('button');
+        shareBtn.className = 'bank-action-btn bank-share-btn';
+        shareBtn.textContent = '[share]';
+        shareBtn.title = 'Share drawer';
+        shareBtn.onclick = (e) => {
+          e.stopPropagation();
+          showSharePopup(index);
+        };
+
         const archiveBtn = document.createElement('button');
         archiveBtn.className = 'bank-action-btn bank-archive-btn';
-        archiveBtn.textContent = '📦';
+        archiveBtn.textContent = '[archive]';
         archiveBtn.title = 'Archive drawer';
         archiveBtn.onclick = (e) => {
           e.stopPropagation();
           showArchiveConfirmPopup(index);
         };
 
+        actions.appendChild(shareBtn);
         actions.appendChild(archiveBtn);
         header.appendChild(nameContainer);
         header.appendChild(actions);
@@ -2673,7 +3072,7 @@ header {
       if (!bank) return;
 
       displayTagList();
-      document.getElementById('tag-manager-popup').style.display = 'block';
+      document.getElementById('tag-manager-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     }
 
@@ -2774,7 +3173,7 @@ header {
         });
       }
 
-      document.getElementById('download-popup').style.display = 'block';
+      document.getElementById('download-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     }
 
@@ -2792,33 +3191,103 @@ header {
     }
 
     function uploadDrawer() {
-      const input = document.getElementById('upload-input');
-      const file = input.files[0];
+      const fileInput = document.getElementById('upload-input');
+      const jsonInput = document.getElementById('upload-json-input');
+      const files = fileInput.files;
+      const pastedJson = jsonInput.value.trim();
 
-      if (!file) {
-        alert('Please select a file');
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
+      // Check if user provided pasted JSON
+      if (pastedJson) {
         try {
-          const data = JSON.parse(e.target.result);
+          const data = JSON.parse(pastedJson);
+
+          // Validate that it's a drawer object
+          if (!data.assignmentName || !Array.isArray(data.comments)) {
+            alert('Invalid drawer format. Please paste valid .drawer file data.');
+            return;
+          }
+
           commentBanks.push(data);
           saveData();
           updateCommentBankList();
           hideUploadPopup();
-          input.value = '';
+          jsonInput.value = '';
+          fileInput.value = '';
+          alert(`Successfully imported "${data.assignmentName}" with ${data.comments.length} card${data.comments.length !== 1 ? 's' : ''}!`);
         } catch (err) {
-          alert('Invalid file format');
+          alert('Invalid .drawer file format. Please check the pasted data and try again.');
+          console.error('JSON parse error:', err);
         }
+        return;
+      }
+
+      // Otherwise check for file upload
+      if (!files || files.length === 0) {
+        alert('Please select a file or paste .drawer file data');
+        return;
+      }
+
+      // Process multiple files
+      let successCount = 0;
+      let errorCount = 0;
+      const importedDrawers = [];
+
+      const processFile = (file, index) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const data = JSON.parse(e.target.result);
+
+              // Validate that it's a drawer object
+              if (!data.assignmentName || !Array.isArray(data.comments)) {
+                errorCount++;
+                resolve();
+                return;
+              }
+
+              commentBanks.push(data);
+              importedDrawers.push(data.assignmentName);
+              successCount++;
+              resolve();
+            } catch (err) {
+              errorCount++;
+              console.error('File parse error:', err);
+              resolve();
+            }
+          };
+          reader.readAsText(file);
+        });
       };
-      reader.readAsText(file);
+
+      // Process all files
+      const filePromises = Array.from(files).map((file, index) => processFile(file, index));
+
+      Promise.all(filePromises).then(() => {
+        saveData();
+        updateCommentBankList();
+        hideUploadPopup();
+        fileInput.value = '';
+        jsonInput.value = '';
+
+        // Show summary message
+        let message = '';
+        if (successCount > 0) {
+          message += `Successfully imported ${successCount} drawer${successCount !== 1 ? 's' : ''}:\n`;
+          importedDrawers.forEach(name => {
+            message += `• ${name}\n`;
+          });
+        }
+        if (errorCount > 0) {
+          message += `\n${errorCount} file${errorCount !== 1 ? 's' : ''} failed to import.`;
+        }
+        alert(message || 'No valid drawers found.');
+      });
     }
 
     // Modal controls
     function showPopup() {
-      document.getElementById('popup').style.display = 'block';
+      document.getElementById('popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
       document.getElementById('assignment-name').focus();
     }
@@ -2829,7 +3298,7 @@ header {
     }
 
     function showAddCommentPopup() {
-      document.getElementById('add-comment-popup').style.display = 'block';
+      document.getElementById('add-comment-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     }
 
@@ -2846,6 +3315,9 @@ header {
     function hideUploadPopup() {
       document.getElementById('upload-popup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
+      // Clear both inputs when closing
+      document.getElementById('upload-input').value = '';
+      document.getElementById('upload-json-input').value = '';
     }
 
     function hideTagManager() {
@@ -2859,7 +3331,7 @@ header {
     }
 
     function showAbout() {
-      document.getElementById('about-popup').style.display = 'block';
+      document.getElementById('about-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     }
 
@@ -2892,8 +3364,12 @@ header {
       hidePopup();
     };
 
-    document.getElementById('backToHomeBtn').onclick = goToHome;
-    document.getElementById('backToHomeFromArchive').onclick = goToHome;
+    document.getElementById('uploadFromNewDrawerBtn').onclick = () => {
+      hidePopup();
+      document.getElementById('upload-popup').style.display = 'flex';
+      document.getElementById('overlay').style.display = 'block';
+    };
+
     document.querySelector('.logo-container').onclick = goToHome;
     document.getElementById('main-title').onclick = goToHome;
     document.getElementById('addCommentBtn').onclick = addComment;
@@ -2919,6 +3395,11 @@ header {
     document.getElementById('confirmArchiveBtn').onclick = confirmArchiveDrawer;
     document.getElementById('cancelArchiveBtn').onclick = hideArchiveConfirmPopup;
 
+    document.getElementById('shareEmailBtn').onclick = shareViaEmail;
+    document.getElementById('shareDownloadBtn').onclick = shareDownloadDrawer;
+    document.getElementById('shareCopyJsonBtn').onclick = shareCopyJson;
+    document.getElementById('cancelShareBtn').onclick = hideSharePopup;
+
     document.getElementById('closeAboutBtn').onclick = hideAbout;
 
     document.getElementById('downloadBtn').onclick = () => {
@@ -2930,16 +3411,57 @@ header {
 
     document.getElementById('uploadBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
-      document.getElementById('upload-popup').style.display = 'block';
+      document.getElementById('upload-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     };
 
     document.getElementById('uploadConfirmBtn').onclick = uploadDrawer;
     document.getElementById('cancelUploadBtn').onclick = hideUploadPopup;
 
+    // Drag and drop functionality
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('upload-input');
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+
+    // Add visual feedback on drag over
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.add('drag-over');
+      });
+    });
+
+    // Remove visual feedback on drag leave
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', (e) => {
+      dropZone.classList.remove('drag-over');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        uploadDrawer();
+      }
+    });
+
+    // Click on drop zone to open file picker
+    dropZone.addEventListener('click', (e) => {
+      if (!e.target.matches('label[for="upload-input"]')) {
+        fileInput.click();
+      }
+    });
+
     document.getElementById('resetBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
-      document.getElementById('clear-data-popup').style.display = 'block';
+      document.getElementById('clear-data-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
     };
 
@@ -2958,7 +3480,16 @@ header {
     };
 
     document.getElementById('toggle-filters-btn').onclick = () => {
-      document.getElementById('tag-filters').classList.toggle('hidden');
+      const tagFilterBar = document.getElementById('tag-filter-bar');
+      const toggleBtn = document.getElementById('toggle-filters-btn');
+      tagFilterBar.classList.toggle('collapsed');
+
+      // Rotate the arrow
+      if (tagFilterBar.classList.contains('collapsed')) {
+        toggleBtn.style.transform = 'rotate(-90deg)';
+      } else {
+        toggleBtn.style.transform = 'rotate(0deg)';
+      }
     };
 
     document.getElementById('clear-filters-btn').onclick = () => {
@@ -3006,6 +3537,7 @@ header {
       hideTagManager();
       hideAbout();
       hideArchiveConfirmPopup();
+      hideSharePopup();
       document.getElementById('clear-data-popup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
       document.getElementById('optionsDropdownMenu').classList.remove('show');
