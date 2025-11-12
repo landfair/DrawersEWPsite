@@ -1666,6 +1666,27 @@ header {
   max-height: 90vh;
 }
 
+.konami-modal {
+  max-width: 900px;
+  max-height: 90vh;
+}
+
+.konami-modal .popup-body {
+  padding: 0;
+}
+
+.wikipedia-container {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.wikipedia-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 .about-section {
   margin-bottom: 32px;
 }
@@ -2108,6 +2129,21 @@ header {
     </div>
     <div class="popup-buttons">
       <button id="closeAboutBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Konami Code Easter Egg Popup -->
+  <div id="konami-popup" class="popup konami-modal">
+    <div class="popup-header">
+      <h2>You found the secret! 🎉</h2>
+    </div>
+    <div class="popup-body">
+      <div class="wikipedia-container">
+        <iframe src="https://en.wikipedia.org/wiki/Desire_path" title="Desire path - Wikipedia" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="closeKonamiBtn">Close</button>
     </div>
   </div>
 
@@ -3627,6 +3663,35 @@ header {
       document.getElementById('overlay').style.display = 'block';
     }
 
+    function showKonami() {
+      document.getElementById('konami-popup').style.display = 'flex';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideKonami() {
+      document.getElementById('konami-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Konami Code Easter Egg
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      const key = e.key.toLowerCase();
+      const expectedKey = konamiCode[konamiIndex].toLowerCase();
+
+      if (key === expectedKey || e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          showKonami();
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
     // Event listeners
     document.getElementById('addCommentBankBtn').onclick = showPopup;
     document.getElementById('goToArchiveBtn').onclick = () => openArchiveDrawer();
@@ -3698,6 +3763,7 @@ header {
     document.getElementById('cancelShareBtn').onclick = hideSharePopup;
 
     document.getElementById('closeAboutBtn').onclick = hideAbout;
+    document.getElementById('closeKonamiBtn').onclick = hideKonami;
 
     document.getElementById('downloadBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
