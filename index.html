@@ -1,0 +1,3070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawers - Resource Organization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Brand Colors - Purple Palette */
+    --primary-color: #6b2d8f;
+    --primary-dark: #4a1d65;
+    --primary-light: #8e44ad;
+    --primary-gradient: linear-gradient(135deg, #7b3fa0 0%, #5a2278 100%);
+
+    /* Neutral Colors */
+    --text-primary: #2d2d3a;
+    --text-secondary: #5a5a6e;
+    --text-tertiary: #8a8a9e;
+    --background-color: #f5f3f8;
+    --card-background: #ffffff;
+    --header-background: #ffffff;
+    --modal-background: #ffffff;
+    --input-background: #ffffff;
+
+    /* Accent Colors - Purple Tints */
+    --accent-purple-light: #a47bb8;
+    --accent-purple-lighter: #d4c4e0;
+    --accent-purple-lightest: #ebe5f2;
+
+    /* UI Elements */
+    --border-color: #e4e0eb;
+    --border-color-strong: #c8c0d6;
+    --card-border: 1px solid rgba(230, 225, 240, 0.8);
+
+    /* Spacing Scale */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(87, 6, 140, 0.08);
+    --shadow-md: 0 4px 16px rgba(87, 6, 140, 0.12);
+    --shadow-lg: 0 8px 24px rgba(87, 6, 140, 0.16);
+    --shadow-xl: 0 16px 48px rgba(87, 6, 140, 0.2);
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background-color: var(--header-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 12px 20px;
+  }
+}
+
+.logo-container {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.logo-container:hover {
+  opacity: 0.8;
+}
+
+.logo-container img {
+  height: 100%;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    height: 32px;
+  }
+
+  .logo-container img {
+    max-width: 140px;
+  }
+}
+
+
+.header-title {
+  flex-grow: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.header-title h1,
+.header-title h2 {
+  font-size: 1.75rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.header-title h1:hover,
+.header-title h2:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .header-title h1,
+  .header-title h2 {
+    font-size: 1.1rem;
+  }
+}
+
+.header-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.options-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-btn {
+  background: transparent;
+  color: var(--primary-color);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 1.4rem;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .toggle-btn {
+    padding: 4px 8px;
+    font-size: 1.2rem;
+  }
+}
+
+.toggle-btn:hover {
+  background-color: var(--accent-purple-lightest);
+  transform: scale(1.1);
+}
+
+.options-dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background-color: var(--card-background);
+  min-width: 220px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-md);
+  z-index: 1000;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .options-dropdown-menu {
+    min-width: 200px;
+    top: calc(100% + 5px);
+  }
+}
+
+.options-dropdown-menu.show {
+  display: block;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+@media (max-width: 768px) {
+  .dropdown-item {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-purple-lightest);
+  color: var(--primary-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 120px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 40px 60px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md) var(--space-sm) 60px;
+  }
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh;
+  display: none;
+  flex-direction: column;
+  animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .popup {
+    max-width: 450px;
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.popup[style*="display: block"] {
+  display: flex;
+}
+
+.popup-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.popup-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #0a0a0a;
+  text-align: left;
+  font-weight: 600;
+}
+
+.popup-body {
+  padding: 16px 24px 12px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(85vh - 180px);
+}
+
+.popup-body label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.popup input[type="text"],
+.popup input[type="url"] {
+  font-size: 0.9375rem;
+  padding: 13px 16px;
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background-color: #fafafa;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.popup input:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(107, 45, 143, 0.08);
+}
+
+.popup textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background-color: #fafafa;
+  margin-bottom: 12px;
+}
+
+.popup textarea:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(107, 45, 143, 0.08);
+}
+
+.popup-buttons {
+  padding: 14px 24px 20px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.popup-buttons button {
+  font-size: 0.875rem;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.popup-buttons button:first-child {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 1px 3px rgba(107, 45, 143, 0.12);
+}
+
+.popup-buttons button:first-child:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(107, 45, 143, 0.2);
+}
+
+.popup-buttons button:last-child {
+  background: #f5f5f5;
+  color: #3a3a3a;
+  border: 1px solid #e5e5e5;
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #ebebeb;
+}
+
+#landing-container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 900px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #landing-container {
+    padding: 0;
+  }
+}
+
+.drawer-search-container {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 48px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .drawer-search-container {
+    padding: 0;
+    margin-bottom: var(--space-md);
+  }
+}
+
+.drawer-search-input {
+  width: 100%;
+  padding: 14px 40px 14px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--input-background);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .drawer-search-input {
+    padding: 8px 36px 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+.drawer-search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(107, 45, 143, 0.1);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.search-clear-btn:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+.comment-banks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .comment-banks {
+    gap: 8px;
+    padding: 0;
+  }
+}
+
+.add-comment-bank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-comment-bank .add-button {
+  font-size: 1.1rem;
+  padding: 20px 32px;
+  background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .add-comment-bank .add-button {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+}
+
+.add-comment-bank .add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.archive-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+
+.archive-link-button {
+  font-size: 1.1rem;
+  padding: 20px 32px;
+  background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .archive-link-button {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+}
+
+.archive-link-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.comment-bank-link {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 32px;
+  background-color: var(--card-background);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: var(--card-border);
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .comment-bank-link {
+    padding: 18px 20px;
+  }
+}
+
+.comment-bank-link:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.comment-bank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-bank-name-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-bank-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .comment-bank-name {
+    font-size: 0.95rem;
+  }
+}
+
+.drawer-card-count {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  padding: 4px 10px;
+  background: var(--background-color);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .drawer-card-count {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+}
+
+.comment-bank-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.comment-bank-link:hover .comment-bank-actions {
+  opacity: 1;
+}
+
+.bank-action-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.bank-action-btn:hover {
+  background: var(--accent-purple-lightest);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.bank-archive-btn {
+  background: transparent;
+}
+
+.bank-archive-btn:hover {
+  background: #fff4e6;
+  color: #e67e22;
+  border-color: #e67e22;
+}
+
+.no-comment-banks {
+  text-align: center;
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin-top: 40px;
+}
+
+.comment-container {
+  display: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  background-color: var(--background-color);
+}
+
+.drawer-page-header {
+  background: var(--header-background);
+  padding: 40px 120px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.drawer-back-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.drawer-back-btn:hover {
+  background: var(--accent-purple-lightest);
+  border-color: var(--primary-color);
+  transform: translateX(-2px);
+}
+
+.drawer-page-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 1200px) {
+  .drawer-page-header {
+    padding: 32px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .drawer-page-header {
+    padding: 20px 16px;
+  }
+
+  .drawer-page-title {
+    font-size: 1.5rem;
+  }
+
+  .drawer-back-btn {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    margin-bottom: 12px;
+  }
+}
+
+.comment-header-wrapper {
+  position: sticky;
+  top: 80px;
+  z-index: 90;
+  background: var(--header-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .comment-header-wrapper {
+    top: 48px;
+  }
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  padding: 16px 120px;
+  background: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .comment-actions {
+    padding: 16px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .comment-actions {
+    padding: 12px 16px;
+    gap: 6px;
+  }
+}
+
+.comment-search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 80px;
+}
+
+.comment-search-input {
+  width: 100%;
+  padding: 10px 36px 10px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  background: var(--input-background);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .comment-search-input {
+    padding: 6px 32px 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+.comment-search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(107, 45, 143, 0.1);
+}
+
+.comment-actions button {
+  background: var(--accent-purple-lightest);
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 50px;
+  min-width: 50px;
+}
+
+@media (max-width: 768px) {
+  .comment-actions button {
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    width: 44px;
+    min-width: 44px;
+  }
+}
+
+.comment-actions #addCommentBtn {
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.comment-actions button:hover {
+  transform: translateY(-1px);
+}
+
+.tag-filter-bar {
+  padding: 0;
+  background: var(--header-background);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.tag-filter-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 12px 120px;
+  background: var(--accent-purple-lightest);
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media (max-width: 1200px) {
+  .tag-filter-header {
+    padding: 12px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tag-filter-header {
+    padding: 8px var(--space-sm);
+  }
+}
+
+.toggle-filters-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  padding: 2px 6px;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: transform var(--transition-fast);
+}
+
+.toggle-filters-btn:hover {
+  background: var(--accent-purple-lighter);
+  border-radius: var(--radius-sm);
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 120px;
+  max-height: 200px;
+  overflow-y: auto;
+  transition: max-height var(--transition-base);
+}
+
+@media (max-width: 1200px) {
+  .tag-filters {
+    padding: 16px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tag-filters {
+    gap: 6px;
+    padding: 12px 16px;
+  }
+}
+
+.tag-filters.hidden {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.tag-filter {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid;
+  transition: all var(--transition-fast);
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .tag-filter {
+    padding: 3px 8px;
+    font-size: 0.65rem;
+  }
+}
+
+.tag-filter:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.tag-filter.active {
+  opacity: 1;
+  box-shadow: var(--shadow-sm);
+  transform: scale(1.03);
+}
+
+.tag-filter.active::after {
+  content: '✓';
+  margin-left: 4px;
+}
+
+.filter-count {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.clear-filters-btn {
+  padding: 4px 10px;
+  background: var(--text-tertiary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.clear-filters-btn:hover {
+  background: var(--text-secondary);
+}
+
+.comments-list-wrapper {
+  padding: 48px 120px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (max-width: 1200px) {
+  .comments-list-wrapper {
+    padding: 40px 60px 60px;
+  }
+
+  #comments-list {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .comments-list-wrapper {
+    padding: 24px 16px 40px;
+  }
+
+  #comments-list {
+    gap: 16px;
+  }
+}
+
+.comment {
+  position: relative;
+  border: var(--card-border);
+  padding: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--card-background);
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(107, 45, 143, 0.06);
+  height: fit-content;
+}
+
+.comment:hover {
+  box-shadow: 0 6px 20px rgba(107, 45, 143, 0.12);
+  transform: translateY(-2px);
+}
+
+.comment::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--primary-color);
+  transition: width var(--transition-base);
+}
+
+.comment:hover::before {
+  width: 6px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--accent-purple-lightest);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  flex: 1;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  border: 2px solid;
+}
+
+.comment-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .comment-body {
+    padding: 14px;
+    gap: 8px;
+  }
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title-display {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.card-title-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.card-title-link:hover {
+  color: #8e44ad;
+  text-decoration: underline;
+}
+
+.copy-link-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.copy-link-btn:hover {
+  background: var(--accent-purple-lightest);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.card-description-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-description-display {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.card-description-display.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description-toggle {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.description-toggle:hover {
+  background: var(--accent-purple-lightest);
+}
+
+.comment-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  background: rgba(107, 45, 143, 0.02);
+  border-top: 1px solid var(--border-color);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.comment-actions-inline {
+  display: flex;
+  gap: 3px;
+}
+
+.comment-actions-inline button {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.comment-actions-inline button:hover {
+  background: var(--card-background);
+  border-color: var(--border-color);
+  color: var(--primary-color);
+}
+
+.btn-icon-compact {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon-compact:hover {
+  background: var(--accent-purple-lightest);
+  color: var(--primary-color);
+}
+
+.tag-manager {
+  max-width: 500px;
+}
+
+.tag-list {
+  margin: 0 0 16px;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.tag-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e8e8e8;
+  background: white;
+}
+
+.tag-list-item:last-child {
+  border-bottom: none;
+}
+
+.tag-list-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.tag-list-actions button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tag-form {
+  padding: 16px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.tag-form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tag-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.tag-color-group {
+  max-width: 90px;
+  flex: 0;
+}
+
+.tag-form-group input[type="text"] {
+  padding: 11px 14px;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+}
+
+.tag-form-group input[type="color"] {
+  height: 42px;
+  cursor: pointer;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 4px;
+  background: white;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-tags-section {
+  margin-top: 8px;
+}
+
+.modal-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fafafa;
+  min-height: 44px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.modal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.5;
+}
+
+.modal-tag:hover {
+  opacity: 0.75;
+  transform: translateY(-1px);
+}
+
+.modal-tag.selected {
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  font-weight: 600;
+}
+
+.modal-tag.selected::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+.no-tags-message {
+  font-size: 0.8125rem;
+  color: #a0a0a0;
+  font-weight: 500;
+}
+
+.about-modal {
+  max-width: 600px;
+  max-height: 90vh;
+}
+
+.about-section {
+  margin-bottom: 32px;
+}
+
+.about-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 12px 0;
+}
+
+.about-text {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+}
+
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-list li {
+  padding: 10px 0 10px 24px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 0.875rem;
+  position: relative;
+  border-left: 3px solid var(--accent-purple-lightest);
+  margin-bottom: 8px;
+  background: var(--background-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding-right: 12px;
+}
+
+.about-list li:before {
+  content: "→";
+  position: absolute;
+  left: 8px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.about-list li strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.feature-item:hover {
+  background: var(--accent-purple-lightest);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.feature-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.about-footer {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 2px solid var(--border-color);
+}
+
+.about-version {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin: 0 0 8px 0;
+}
+
+.about-tagline {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-style: italic;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-xl);
+  color: var(--text-tertiary);
+}
+
+.empty-state-icon {
+  font-size: 5rem;
+  margin-bottom: var(--space-lg);
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  font-size: 1.5rem;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .empty-state-icon {
+    font-size: 4rem;
+  }
+
+  .empty-state h3 {
+    font-size: 1.2rem;
+  }
+
+  .empty-state p {
+    font-size: 0.9rem;
+  }
+}
+
+.drawer-search-results {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.search-result-count {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  background: var(--accent-purple-lightest);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.search-results-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-result-card-preview {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  background: var(--background-color);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--primary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.search-result-card-preview:hover {
+  background: var(--accent-purple-lightest);
+  transform: translateX(2px);
+  color: var(--text-primary);
+}
+
+.search-highlight {
+  background-color: rgba(107, 45, 143, 0.2);
+  border-radius: 2px;
+  padding: 1px 2px;
+  font-weight: 600;
+}
+
+.archived-drawer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px;
+  background-color: var(--card-background);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: var(--card-border);
+  margin-bottom: 12px;
+  transition: all var(--transition-base);
+}
+
+.archived-drawer-item:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.archived-drawer-name-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.archived-drawer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.archived-drawer-count {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  padding: 4px 10px;
+  background: var(--background-color);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.archived-drawer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.archived-action-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.restore-btn:hover {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.archived-action-btn.delete-btn:hover {
+  background: #ffebee;
+  color: #c62828;
+  border-color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .archived-drawer-item {
+    padding: 18px 20px;
+  }
+
+  .archived-drawer-name {
+    font-size: 0.95rem;
+  }
+
+  .archived-drawer-count {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    margin: 0 12px;
+  }
+
+  .archived-action-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="https://i.imgur.com/iIODsNl.png" alt="Logo" class="logo-img" id="headerLogo">
+    </div>
+    <div class="header-title">
+      <h1 id="main-title">Drawers</h1>
+    </div>
+    <div class="header-buttons">
+      <div class="options-dropdown">
+        <button class="toggle-btn" id="optionsDropdownBtn" title="Options">∨</button>
+        <div class="options-dropdown-menu" id="optionsDropdownMenu">
+          <button class="dropdown-item" id="aboutBtn">About</button>
+          <button class="dropdown-item" id="archiveBtn">Archive</button>
+          <button class="dropdown-item" id="uploadBtn">Upload Drawer</button>
+          <button class="dropdown-item" id="downloadBtn">Download Drawer</button>
+          <button class="dropdown-item" id="resetBtn">Reset All Data</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="overlay" class="overlay"></div>
+
+  <div class="container">
+    <!-- About Popup -->
+    <div id="about-popup" class="popup about-modal">
+      <div class="popup-header">
+        <h2>About Drawers</h2>
+      </div>
+      <div class="popup-body">
+        <div class="about-section">
+          <h3 class="about-heading">The Problem with Traditional Bookmarks</h3>
+          <p class="about-text">
+            Browser bookmarks were designed for casual web browsing, not professional knowledge management. They fall short in several critical ways:
+          </p>
+          <ul class="about-list">
+            <li><strong>Chaotic Organization:</strong> Bookmarks pile up in folders with no clear structure.</li>
+            <li><strong>No Context:</strong> You can't add descriptions or explanations about why a resource matters.</li>
+            <li><strong>No Tagging or Filtering:</strong> You're stuck with rigid folder hierarchies.</li>
+          </ul>
+        </div>
+
+        <div class="about-section">
+          <h3 class="about-heading">How Drawers Solves This</h3>
+          <p class="about-text">
+            Drawers reimagines bookmarking as a <strong>contextual knowledge management system</strong> designed for educators and professionals.
+          </p>
+
+          <div class="feature-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🗂️</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Organized Drawers</h4>
+                <p class="feature-desc">Group resources by project, course, or topic.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">📝</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Rich Context</h4>
+                <p class="feature-desc">Add titles, descriptions, and links to each card.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">🏷️</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Flexible Tagging</h4>
+                <p class="feature-desc">Create custom tags and apply multiple tags to each card.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">🔍</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Powerful Search</h4>
+                <p class="feature-desc">Search across all drawers and cards instantly.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">📤</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Easy Sharing</h4>
+                <p class="feature-desc">Export drawers as .drawer files.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">💾</div>
+              <div class="feature-content">
+                <h4 class="feature-title">Local Storage</h4>
+                <p class="feature-desc">All data stored locally in your browser.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-section about-footer">
+          <p class="about-version">Version 1.0</p>
+          <p class="about-tagline">Built for educators, researchers, and knowledge workers who deserve better than browser bookmarks.</p>
+        </div>
+      </div>
+      <div class="popup-buttons">
+        <button id="closeAboutBtn">Close</button>
+      </div>
+    </div>
+
+    <!-- New Drawer Popup -->
+    <div id="popup" class="popup">
+      <div class="popup-header">
+        <h2>New Drawer</h2>
+      </div>
+      <div class="popup-body">
+        <label for="assignment-name">Drawer Name</label>
+        <input type="text" id="assignment-name" placeholder="e.g., Faculty Resources">
+      </div>
+      <div class="popup-buttons">
+        <button id="createBankBtn">Create</button>
+        <button id="cancelBankBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Reset Confirmation Popup -->
+    <div id="clear-data-popup" class="popup">
+      <div class="popup-header">
+        <h2>Are you sure you want to erase your data?</h2>
+      </div>
+      <div class="popup-buttons">
+        <button id="yesClearBtn">Yes, let's erase it all!</button>
+        <button id="noClearBtn">No, never mind.</button>
+      </div>
+    </div>
+
+    <!-- Download Popup -->
+    <div id="download-popup" class="popup">
+      <div class="popup-header">
+        <h2>Download Drawer</h2>
+      </div>
+      <div class="popup-body">
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
+          Select a drawer to download as a JSON file.
+        </p>
+        <div id="download-options"></div>
+      </div>
+      <div class="popup-buttons">
+        <button id="downloadConfirmBtn">Download</button>
+        <button id="cancelDownloadBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Archive Confirmation Popup -->
+    <div id="archive-confirm-popup" class="popup">
+      <div class="popup-header">
+        <h2>Archive Drawer?</h2>
+      </div>
+      <div class="popup-body">
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
+          Are you sure you want to archive <strong id="archive-drawer-name"></strong>?
+        </p>
+        <p style="color: var(--text-tertiary); font-size: 0.85rem;">
+          You can restore it later from the Archive.
+        </p>
+      </div>
+      <div class="popup-buttons">
+        <button id="confirmArchiveBtn">Archive</button>
+        <button id="cancelArchiveBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Upload Popup -->
+    <div id="upload-popup" class="popup">
+      <div class="popup-header">
+        <h2>Upload Drawer</h2>
+      </div>
+      <div class="popup-body">
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">
+          Select a .drawer (JSON) file to upload.
+        </p>
+        <input type="file" id="upload-input" accept=".drawer,.json">
+      </div>
+      <div class="popup-buttons">
+        <button id="uploadConfirmBtn">Upload</button>
+        <button id="cancelUploadBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Tag Manager Popup -->
+    <div id="tag-manager-popup" class="popup tag-manager">
+      <div class="popup-header">
+        <h2>Manage Tags</h2>
+      </div>
+      <div class="popup-body">
+        <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 12px;">
+          Create custom tags to organize your cards. You can apply multiple tags to each card.
+        </p>
+
+        <div class="tag-list" id="tag-list"></div>
+
+        <div class="tag-form">
+          <div class="tag-form-row">
+            <div class="tag-form-group">
+              <label>Tag Name</label>
+              <input type="text" id="new-tag-name" placeholder="e.g., Important, To Read">
+            </div>
+            <div class="tag-form-group tag-color-group">
+              <label>Color</label>
+              <input type="color" id="new-tag-color" value="#6b2d8f">
+            </div>
+          </div>
+          <button class="btn-primary" id="addTagBtn">+ Add Tag</button>
+        </div>
+      </div>
+
+      <div class="popup-buttons">
+        <button id="doneTagsBtn">Done</button>
+      </div>
+    </div>
+
+    <!-- Add/Edit Card Popup -->
+    <div id="add-comment-popup" class="popup add-comment-modal">
+      <div class="popup-header">
+        <h2 id="comment-modal-title">New Card</h2>
+      </div>
+      <div class="popup-body">
+        <label for="card-title">Title</label>
+        <input type="text" id="card-title" placeholder="Enter card title...">
+
+        <label for="card-link">Link</label>
+        <input type="url" id="card-link" placeholder="Enter URL...">
+
+        <label for="card-description">Description</label>
+        <textarea id="card-description" placeholder="Enter card description..."></textarea>
+
+        <div class="modal-tags-section">
+          <label>Tags (optional)</label>
+          <div class="modal-tags-container" id="modal-tags-container">
+            <span class="no-tags-message">No tags available</span>
+          </div>
+        </div>
+      </div>
+      <div class="popup-buttons">
+        <button id="saveCommentBtn">Save Card</button>
+        <button id="cancelCommentBtn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Landing Container -->
+    <div id="landing-container">
+      <div class="drawer-search-container">
+        <div class="search-input-wrapper">
+          <input type="text" id="drawer-search" class="drawer-search-input" placeholder="Search drawers and cards...">
+          <button class="search-clear-btn" id="drawer-search-clear" style="display: none;" title="Clear search">×</button>
+        </div>
+      </div>
+
+      <div id="comment-bank-list" class="comment-banks">
+        <div class="add-comment-bank">
+          <button class="add-button" id="addCommentBankBtn">+ Add Drawer</button>
+        </div>
+        <div class="archive-link-container">
+          <button class="archive-link-button" id="goToArchiveBtn">📦 Archive</button>
+        </div>
+      </div>
+      <p class="no-comment-banks" id="no-comment-banks-message">No drawers created yet.</p>
+    </div>
+  </div>
+
+  <!-- Archive Container -->
+  <div id="archive-container" class="comment-container" style="display: none;">
+    <div class="drawer-page-header">
+      <button class="drawer-back-btn" id="backToHomeFromArchive" title="Back to Home">← Back to Drawers</button>
+      <h2 class="drawer-page-title">📦 Archive</h2>
+    </div>
+    <div id="archived-drawers-list" class="comments-list-wrapper"></div>
+  </div>
+
+  <!-- Comment Container -->
+  <div id="comment-container" class="comment-container">
+    <div class="drawer-page-header">
+      <button class="drawer-back-btn" id="backToHomeBtn" title="Back to Home">← Back to Drawers</button>
+      <h2 class="drawer-page-title" id="drawer-page-title"></h2>
+    </div>
+    <div class="comment-header-wrapper">
+      <div class="comment-actions">
+        <div class="comment-search-wrapper">
+          <input type="text" id="comment-search" class="comment-search-input" placeholder="Search cards...">
+          <button class="search-clear-btn" id="comment-search-clear" style="display: none;" title="Clear search">×</button>
+        </div>
+        <button class="btn-compact" id="manageTagsBtn" title="Manage Tags">🏷️</button>
+        <button class="btn-compact btn-primary-compact" id="addCommentBtn" title="Add Card">+</button>
+      </div>
+
+      <div class="tag-filter-bar" id="tag-filter-bar">
+        <div class="tag-filter-header">
+          <button class="toggle-filters-btn" id="toggle-filters-btn" title="Toggle filters">▼</button>
+          <span class="filter-count" id="filter-count"></span>
+          <button class="clear-filters-btn" id="clear-filters-btn" style="display: none;">Clear</button>
+        </div>
+        <div class="tag-filters" id="tag-filters"></div>
+      </div>
+    </div>
+
+    <div class="comments-list-wrapper">
+      <div id="comments-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let commentBanks = [];
+    let currentCommentBankIndex = -1;
+    let activeTagFilters = [];
+    let searchQuery = '';
+
+    // Generate unique IDs
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    // Create URL-friendly slug from drawer name
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-')      // Replace spaces with hyphens
+        .replace(/--+/g, '-')      // Replace multiple hyphens with single hyphen
+        .trim();
+    }
+
+    // Basic universal tags for new drawers
+    function getBasicTags() {
+      return [
+        { id: generateId(), name: 'Important', color: '#e74c3c' },
+        { id: generateId(), name: 'Starred', color: '#f39c12' },
+        { id: generateId(), name: 'To Read', color: '#3498db' },
+        { id: generateId(), name: 'Reference', color: '#9b59b6' }
+      ];
+    }
+
+    // Get preloaded drawers
+    function getPreloadedCommentBanks() {
+      return [
+        {"archived":false,"assignmentName":"Class Activities","comments":[{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":[],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"}],"tags":[{"color":"#16a085","id":"mhtnxr845ahe29ucwed","name":"Group Work"},{"color":"#2980b9","id":"mhtnxr84sl102glan3","name":"Discussion Prompts"},{"color":"#f39c12","id":"mhtnxr84gj0t2z2ke2","name":"Exercises"},{"color":"#c0392b","id":"mhtnxr84z2dxx8k58f","name":"Games"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Digital Tools","comments":[{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"U even revise, bro?"},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of the UnJumble analog, in-class activity","link":"https://landfair.github.io/UnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Daily Puzzle"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Says/Does Worksheet Generator"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Say More Here"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Writing-center.org"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":["mhsbwvz5elnu3gz5hdb","mhsbx76cietl327h3pr"],"title":"EWP Writing Research Exchange"}],"tags":[{"color":"#6b2d8f","id":"mhsbwvz5elnu3gz5hdb","name":"Landfair"},{"color":"#1b6933","id":"mhsbx76cietl327h3pr","name":"EWP"},{"color":"#8f342d","id":"mhsbxf41elwnjwn4w46","name":"Zaretsky"},{"color":"#d94717","id":"mhsbxqezwjms7lc0tyg","name":"Lesson plan"},{"color":"#6b2d8f","id":"mhsc1qakgdjly1jblft","name":"Wojczuk"}]},
+        {"archived":false,"assignmentName":"Faculty Resources","comments":[{"description":"EWP Guide to Making Feedback and Grading More Effective and Efficient","link":"https://sites.google.com/nyu.edu/ewp-resources/commenting-grading?authuser=0","tags":[],"title":"Commenting & Grading"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"Learning outcomes and parameters for all EXPOS courses","link":"https://wp.nyu.edu/fas-ewp/parameters/","tags":[],"title":"EWP Course Parameters"},{"description":"EWP Vocabulary for Writing","link":"https://wp.nyu.edu/fas-ewp/ewp-vocabulary-for-writing/","tags":[],"title":"EWP Vocabulary"},{"description":"Fall 2025","link":"https://drive.google.com/file/d/1g7e7pXIf3rl8GO_jl9bNx5oMgVKf7-h2/view","tags":[],"title":"EWP Faculty Handbook"},{"description":"Resources for antiracist pedagogy","link":"https://sites.google.com/nyu.edu/ewp-resources/antiracist-pedagogies?authuser=0","tags":[],"title":"Antiracist Pedagogies"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator"},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"Syllabus Template & Calendars","link":"https://wp.nyu.edu/fas-ewp/ewp-teaching-resources/syllabus-template-calendars/","tags":[],"title":"EWP Syllabus Templates"},{"description":"Last updated Dec 2, 2022","link":"https://wp.nyu.edu/fas-ewp/ewp-bylaws/","tags":[],"title":"EWP Bylaws"},{"description":"Continuously updated rosters of EWP committees, with term dates.","link":"https://docs.google.com/spreadsheets/d/1q4JwdlvxW2TPY8MJYdaZ7iqMkB_P7PJHBYKgCiKVjhw/edit?gid=1362628826#gid=1362628826","tags":["mhtnxr84iswg5u99ali"],"title":"EWP Committee Members"},{"description":"Names of EWP faculty leadership positions and their current occupants, with term dates","link":"https://wp.nyu.edu/fas-ewp/rotating-faculty-leadership-positions/#outreach","tags":[],"title":"Faculty Leadership Positions"},{"description":"Syllabi shared by EWP faculty, organized division","link":"https://sites.google.com/nyu.edu/ewp-resources/shared-syllabi?authuser=0","tags":[],"title":"Shared Syllabi"},{"description":"These resources and recommendations highlight promising practices for making feedback and grading more effective and efficient. We know feedback and grading take more time and energy than other teaching activities, and we also know they are essential stages in the writing process that help students develop their ability to assess, revise, and enhance their work. The CAC developed these resources through two years of studying EWP student and faculty perspectives, EWP faculty approaches, and research from writing studies and other fields. Members included Anthony Carelli, Suzanne Cope, Gita DasBender, Jameson Fitzpatrick, David Foley, Michelle McSwiggan Kelly, Nate Mickelson, Brian Schwartz, and Wil Weitzel.","link":"https://docs.google.com/document/d/1KjzrONYEJt-ZEM-JAsU9iAeus-Y8XLUxiTT-754Yxd0/edit?tab=t.0","tags":[],"title":"Making Feedback and Grading More Efficient and Effective"},{"description":"information about course and syllabus policies, including Program Vocabulary & Student Learning Outcomes\nCourse Parameters\nCourse Syllabus\nCourse Texts\nClass Attendance\nExpectations for Work Students Complete Outside of Class\nGrades of Incomplete\nGrading Standards\nGrading Criteria\nConversion Scale for Translating %s and Letter Grades and GPA Equivalents \nValuing Process Work in Course Grade Breakdowns\nDisability Accommodations\nPlagiarism\nStudents in Difficulty\nIssues of Attendance & Timely Completion of Work \nGrade Disputes","link":"https://wp.nyu.edu/fas-ewp/course-and-syllabus-policies/#plagiarism","tags":["mhtnxr84iswg5u99ali","mhtnxr84un3aj7zaic"],"title":"Course and Syllabus Policies"},{"description":"Faculty forms, including Leave of Absence, Workload Relief, Expense pre-approval form, Faculty Reimbursement Submission Form\nReimbursement Cover Sheet, and \nMissing Receipt","link":"https://wp.nyu.edu/fas-ewp/forms/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Forms"},{"description":"RESOURCES FOR SUPPORT AND SAFETY, including SUICIDE AND CRISIS\n\nNYU Wellness: 24/7 support via phone (212) 443-9999, chat, or app in 6 languages\nSame-day urgent care appointments available\n\n988Lifeline: 24/7, call, text, or chat, also in Spanish\n\n*The BlackLine, a service from BEAM, the Black Emotional and Mental Health Collective\n(800) 604-5841 \n\nThe Blue Dove, A Jewish mental health/crisis support organization that values tikkun olam, or \"repairing the world.\" Their local resource is Amudim.\n\n*Strong Hearts Native Helpline: (844) 762-8483\n\nBIAS ISSUES\n\nNYU Bias Hotline: (212) 998-2277 (not 24/7; may take 48 hours to respond)\n\n*If you are targeted for being of Arab/Muslim descent, wearing a keffiyeh, etc., contact FSJP\n\nLGBTQ+\n\nThe Trevor Project: click link for chat, text, or phone 24/7\n\n*The Ali Forney Center: (212) 206-0574 Ext 100; 24-7 drop-in center at 307 W. 38th Street, 3rd Floor\n\n*Sylvia's Place: (212) 629-7440 An emergency night shelter for LGBTQ+ ages 16-23 at 446 W. 36th Street\n\n*Trans Lifeline: (877) 565-8860 (not 24/7)\n\n*NYC Gay and Lesbian Anti-Violence Project: (212) 714-1141, 24/7, Spanish and English\n\nA guide to help transgender people prepare for potential anti-trans government action\n\nIMMIGRATION ISSUES\n\nNational Network For Immigrant and Refugee Rights: A resource for all nationalities and gender identities who have concerns about their immigration/refugee status and/or safety.\n\nAction NYC: (800) 354-0365\n\nCitizenship Now: (212) 652-2071\n\n*NYU Law Immigrant Defense Initiative (212) 998-6640. \n\nImmigration Law Help – online directory of free/low cost immigrant legal aid\n\n*CUNY CLEAR (Creating Law Enforcement Accountability and Responsibility)\n(718) 340-4558 \nA CUNY School of Law project \"to address the unmet legal needs of Muslim, Arab, South Asian, and other communities in the NYC area that are particularly affected by national security and counter-terrorism policies and practices.\" \n\nSEXUAL ASSAULT AND HARRASSMENT; DOMESTIC AND DATING VIOLENCE\n\nRAINN (Rape, Abuse, and Incest National Network): (800) 656-4673 24/7, Spanish and English \n\n*Safe Horizons: 1 (800) 621-4673 24/7; In multiple languages\n\nHATE CRIMES\n\n*Safe Horizons (866) 689-HELP (4357) 24/7; in multiple languages\n\nStop AAPI Hate: A coalition dedicated to ending racism and discrimination against Asian Americans and Pacific Islanders. \n\nFrom Capital B: \"Strategies for Black Americans to Nurture Mental Health After the Election\"\n\nSHELTER\n\nThe Emergency Shelter Network, operating in all five NYC boroughs","link":"https://docs.google.com/document/d/1zVl8TAkkb5RvNuqbSVtIPu7cCBWv8qszbRk5Gya1YZo/edit?tab=t.0","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Safety and Support Resources"},{"description":"EWP administrative procedures, including:  Administrative Procedures\nAlbert Faculty Center\nAnnual Merit Increase\nCopyright Policy at NYU\nCopy Procedure / Printer Access\nCourse Evaluations\nDisability Accommodations\nFERPA: University Compliance\nLaptops for Faculty\nLeaves of Absence\nLeaves to Pursue Scholarly or Creative Work\nMercer Street Invitations\nNYU's Policy on Sexual Misconduct, Relationship Violence, and Stalking\nOffice Space\nOffice Supplies\nReappointment & Promotion\nResearch Funds & Reimbursement Process\nRotating Faculty Leadership Positions\nStudent Grade Appeals\nTeaching Assignments","link":"https://wp.nyu.edu/fas-ewp/administrative-procedures/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Administrative Procedures"}],"tags":[{"color":"#6b2d8f","id":"mhtnxr84iswg5u99ali","name":"Department"},{"color":"#3498db","id":"mhtnxr84sy9soky0bi","name":"Professional Development"},{"color":"#e74c3c","id":"mhtnxr84un3aj7zaic","name":"Policies"},{"color":"#2ecc71","id":"mhtnxr84tzsdiahlbs","name":"Tools"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"}]},
+        {"archived":false,"assignmentName":"Handouts","comments":[{"description":"Mark Gaipa's cartoon sketches describe ways students can orient themselves with their sources.","link":"https://docs.google.com/document/d/1fWTqDmIJxOEcQXPln5LZ9zgpVPfIwtNQ/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":[],"title":"8 Strategies for Critically Engaging Secondary Sources"},{"description":"Some templates that model ways to engage critically with texts","link":"https://docs.google.com/document/d/1QnArCHLJzb0cH7W18zLVjXENTbf_Svg1/edit?usp=sharing&ouid=114539023273531819441&rtpof=true&sd=true","tags":["mhrtpntfn456fml0vk"],"title":"Critical Moves: Ways of Critically Assessing Texts"},{"description":"A handout that provides models of sentences that describe or establish a writers motivations for research, argumentation, or close-reading.","link":"https://docs.google.com/document/d/1_lZoqLrp3qdkeNwZ5RsDNafeOh524pNOOEwV-5akdQU/edit?usp=sharing","tags":[],"title":"Motivating Sentences"},{"description":"Excerpts from Booth's The Craft of Research (2008).","link":"https://docs.google.com/document/d/1bdV72xn8aMBkrXG-r1sDmHFSSYDA9z8MY4dMvZvPY9U/edit?usp=sharing","tags":[],"title":"Establishing a Line of Inquiry"},{"description":"Handout teaching textual incorporation in order to avoid plagiarism","link":"https://docs.google.com/document/d/1Hik9ojEPym7LAL1TFf_X7KyIIke7adbD8K_hxG1ibyQ/edit?usp=sharing","tags":[],"title":"Textual Incorporation"},{"description":"This handout from Jono Mischkot teaches students how to incorporate and engage with textual evidence.","link":"https://docs.google.com/document/d/1fN_9NlaQUlL6gH0aoOVAfNYo9KK8hkPNhkiSRUUEw7E/edit?usp=sharing","tags":["mhscsodcdaeay6chs6"],"title":"Engaging with Evidence"}],"tags":[{"color":"#9b59b6","id":"mhrtpntffpc9pervcjt","name":"Style Guide"},{"color":"#3498db","id":"mhrtpntfn456fml0vk","name":"Templates"},{"color":"#2ecc71","id":"mhrtpntfnrid00we6hk","name":"Examples"},{"color":"#e67e22","id":"mhrtpntf09h7nxub9md2","name":"Rubrics"},{"color":"#e74c3c","id":"mhrtpntfkpd37rpxayj","name":"Important"},{"color":"#3498db","id":"mhrtpntf2sb62sgnpvg","name":"To Read"},{"color":"#9b59b6","id":"mhrtpntfyyaerrbg7zi","name":"Reference"},{"color":"#2ecc71","id":"mhrtpntf1ldi8pl488u","name":"Current Semester"},{"color":"#95a5a6","id":"mhrtpntfa7cfpeibaxv","name":"Archive"},{"color":"#6b2d8f","id":"mhscsodcdaeay6chs6","name":"Mischkot"}]},
+        {"archived":true,"assignmentName":"Major Assignments","comments":[],"tags":[{"color":"#8e44ad","id":"mhtnxr844hbs51a95oa","name":"Research Paper"},{"color":"#c0392b","id":"mhtnxr84v6qk8so6u6s","name":"Final Project"},{"color":"#2980b9","id":"mhtnxr84fcz18ei00f","name":"Presentation"},{"color":"#16a085","id":"mhtnxr84x1l3iskbynf","name":"Portfolio"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":true,"assignmentName":"Minor Assignments","comments":[],"tags":[{"color":"#27ae60","id":"mhtnxr8401qr95aywbgg","name":"Discussion"},{"color":"#f39c12","id":"mhtnxr84g5bduftxxw4","name":"Reflection"},{"color":"#8e44ad","id":"mhtnxr84g2t6nxgu5bi","name":"Response Paper"},{"color":"#e74c3c","id":"mhtnxr84v17htrpzxnt","name":"Quiz"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Readings","comments":[{"description":"E-reader for Tandon Writing Courses","link":"https://www.zotero.org/groups/2914093/ewp_tandon_reader/items/3PC2X3KQ/library","tags":[],"title":"Tandon Reader"},{"description":"E-reader for Tisch EWP courses","link":"https://www.zotero.org/groups/2914099/ewp_tisch_reader/library","tags":[],"title":"Tisch Reader"},{"description":"E-Reader for EWP courses","link":"https://www.zotero.org/groups/2335188/a_digital_anthology_for_writers/library","tags":[],"title":"Digital Anthology for Writers"},{"description":"EWP's Journal of Undergraduate Writing","link":"https://wp.nyu.edu/mercerstreet/","tags":[],"title":"Mercer Street"}],"tags":[{"color":"#c0392b","id":"mhtnxr84sbuu09tuemc","name":"Required"},{"color":"#f39c12","id":"mhtnxr8472gkr5569jd","name":"Recommended"},{"color":"#3498db","id":"mhtnxr84a7yb6rcpupi","name":"Supplemental"},{"color":"#9b59b6","id":"mhtnxr84er5ufg8qk3k","name":"Articles"},{"color":"#16a085","id":"mhtnxr84ist0u43oep","name":"Books"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Reimbursement","comments":[{"description":"List purchases to be reiumbursed","link":"https://docs.google.com/spreadsheets/d/1pqj7COOOzFmlCJ4LoXEDxkeBJ90991G_kdRuQ9iDW70/edit#gid=0","tags":[],"title":"Reimbursement coversheet"},{"description":"Use this form to send Reimbursement forms to Richard and Simone","link":"https://www.google.com/url?q=https://forms.gle/irx6BS8QR2AsS56U6&sa=D&source=editors&ust=1762736140594528&usg=AOvVaw1DijQ9xDo71Z5RUtLi4qgK","tags":[],"title":"Reimbursement Google Form"}],"tags":[{"color":"#3498DB","id":"mhsdeluiwrsf62q5n0g","name":"Evidence"},{"color":"#2ECC71","id":"mhsdeluig09f0gziee5","name":"Organization"},{"color":"#9B59B6","id":"mhsdelui8xx5hp513qv","name":"Intro"},{"color":"#8E44AD","id":"mhsdeluidqvxmlco8ow","name":"Conclusion"},{"color":"#E74C3C","id":"mhsdeluir5amv4zwfgm","name":"Voice"},{"color":"#FFD700","id":"mhsdelui5neam98xwqx","name":"Praise"},{"color":"#E67E22","id":"mhsdelui8tci8sd63ii","name":"Critical"},{"color":"#1ABC9C","id":"mhsdelui176pr0kh0lp","name":"Salutation"},{"color":"#16A085","id":"mhsdelui4gd1fs8cjrc","name":"Valediction"},{"color":"#C0392B","id":"mhsdelui7809hl6uldw","name":"Stakes"},{"color":"#D35400","id":"mhsdelui8fpurrvsuns","name":"Problem"},{"color":"#34495E","id":"mhsdeluijkybyc5ti8","name":"Ethos"},{"color":"#27AE60","id":"mhsdeluicbfhjzg1elg","name":"Sayback"}]},
+        {"archived":true,"assignmentName":"Research","comments":[],"tags":[{"color":"#8e44ad","id":"mhtp68rbdq10ie872vc","name":"Databases"},{"color":"#2980b9","id":"mhtp68rbc13dcbdlt3s","name":"Journals"},{"color":"#16a085","id":"mhtp68rbtcwqhr5s1wc","name":"Citation Tools"},{"color":"#c0392b","id":"mhtp68rbv6brt1kpaf","name":"Primary Sources"},{"color":"#f39c12","id":"mhtp68rb52d4llkq1zx","name":"Secondary Sources"},{"color":"#e74c3c","id":"mhtp68rbtj4m9xwr7l","name":"Important"},{"color":"#3498db","id":"mhtp68rbdhsgumn5yq","name":"To Read"},{"color":"#9b59b6","id":"mhtp68rbytg2hrygtht","name":"Reference"},{"color":"#2ecc71","id":"mhtp68rb2sxg2saer53","name":"Current Semester"},{"color":"#95a5a6","id":"mhtp68rbdy6v67256p7","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Slide Decks","comments":[{"description":"Using stasis theory to distinguish among five classes of claims and questions.","link":"https://docs.google.com/presentation/d/1fz4c6aIceYhL3TG_-_1yah46QCV6JSFZLkhnFIyLSL0/edit?usp=sharing","tags":[],"title":"Stasis Theory Lesson"},{"description":"Background, lit review, and emerging best practices","link":"https://docs.google.com/presentation/d/1u24zndaiNnzttdMicW09ejTIXmHZZUg3ewcYU_E_7Ks/edit?usp=sharing","tags":[],"title":"Navigating AI-Detection Tools"},{"description":"Research backed principles and strategies to guide our peer-review practices","link":"https://docs.google.com/presentation/d/1Ss7GLn25vqZi7sPTQBnKcqC1n7aujSWkNFMlO5616eI/edit?usp=sharing","tags":[],"title":"Peer-Review Training"},{"description":"Using says/does analysis to get critical distance needed to revise effectively","link":"https://docs.google.com/presentation/d/1yn9w7axwd5c5h_ClF9QcJjKyUSzn40tDyQOfuQh484Q/edit?usp=sharing","tags":[],"title":"Critical Distance Lesson"},{"description":"How to read a peer-reviewed science journal article google slide deck","link":"https://docs.google.com/presentation/d/1z2e8ziyok3aaHNutAld1KAas_HiSDoF2CqZxCNP9t24/edit?usp=sharing","tags":[],"title":"How to Read a Science Journal Article Lesson"},{"description":"How to work more efficiently, and feel more confident in your final products","link":"https://docs.google.com/presentation/d/1qnecHjiU0mbd7--sOSXW6r0CmTW3vf3p4ePjm9P9HnI/edit?usp=sharing","tags":[],"title":"Time Management Lessons"}],"tags":[{"color":"#3498DB","id":"mhtov5pyaikxcgocdbu","name":"Evidence"},{"color":"#2ECC71","id":"mhtov5py1vyq3ig7hkt","name":"Organization"},{"color":"#9B59B6","id":"mhtov5py6zvwa4r3f2u","name":"Intro"},{"color":"#8E44AD","id":"mhtov5pygoda18bbb4g","name":"Conclusion"},{"color":"#E74C3C","id":"mhtov5pygec4cony4dl","name":"Voice"},{"color":"#FFD700","id":"mhtov5pyz4c0ibv7yjq","name":"Praise"},{"color":"#E67E22","id":"mhtov5py1lhbiyrzxnn","name":"Critical"},{"color":"#1ABC9C","id":"mhtov5pyhqzg4r6hi5f","name":"Salutation"},{"color":"#16A085","id":"mhtov5pyuf6jskukaok","name":"Valediction"},{"color":"#C0392B","id":"mhtov5py127mzd1veax","name":"Stakes"},{"color":"#D35400","id":"mhtov5pyq6kpgv997u","name":"Problem"},{"color":"#34495E","id":"mhtov5py93tj6kcalmr","name":"Ethos"},{"color":"#27AE60","id":"mhtov5pyr9f80prsry","name":"Sayback"}]},
+        {"archived":false,"assignmentName":"Student Resources","comments":[{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":[],"title":"U even revise, bro?"}],"tags":[{"color":"#1abc9c","id":"mhtnxr84q7flzipray","name":"Academic Support"},{"color":"#3498db","id":"mhtnxr84xu8ana8fcnl","name":"Writing Center"},{"color":"#9b59b6","id":"mhtnxr84s54gewmem6m","name":"Tutoring"},{"color":"#e67e22","id":"mhtnxr84ah4iceaqfbp","name":"Campus Services"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"},{"color":"#95a5a6","id":"mhtnxr84llxrpa8imq","name":"Archive"}]},
+        {"archived":false,"assignmentName":"Writing Research","comments":[{"description":"","link":"https://wp.nyu.edu/fas-ewp/further-reading/","tags":[],"title":"Antiracist pedagogies further readings"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":[],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":[],"title":"EWP Writing Research Exchange"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"FAQ, readings, and other resources re: student accomodations","link":"https://docs.google.com/document/d/1aZyOp5bnjQO0RyLu5ffKBQim6oIiEv02h_Pn3xxd8YA/edit?tab=t.0#heading=h.e5sw6u4vhit0","tags":[],"title":"On Accomodations"},{"description":"Scholarship and resources for teaching international sections","link":"https://drive.google.com/drive/folders/1FymTFmIEHH1bEyhNIe3N0aDw4OriAlHi","tags":[],"title":"Research for Teaching Writing to Nonnative English Speakers"}],"tags":[{"color":"#3498DB","id":"mhtnybtipwchyc6m5wn","name":"Evidence"},{"color":"#2ECC71","id":"mhtnybtioo3zd8xgth","name":"Organization"},{"color":"#9B59B6","id":"mhtnybtifd7sqx3pfuw","name":"Intro"},{"color":"#8E44AD","id":"mhtnybti5ywsitnmdnj","name":"Conclusion"},{"color":"#E74C3C","id":"mhtnybtiu4hwjxtoj0g","name":"Voice"},{"color":"#FFD700","id":"mhtnybtivtyaalvc6kp","name":"Praise"},{"color":"#E67E22","id":"mhtnybti0y3k2zi7dy0k","name":"Critical"},{"color":"#1ABC9C","id":"mhtnybtirahlynppwol","name":"Salutation"},{"color":"#16A085","id":"mhtnybti795fq3mbn9x","name":"Valediction"},{"color":"#C0392B","id":"mhtnybtijax1obnkump","name":"Stakes"},{"color":"#D35400","id":"mhtnybtiit6uimm1tgo","name":"Problem"},{"color":"#34495E","id":"mhtnybti2zjjth9azo8","name":"Ethos"},{"color":"#27AE60","id":"mhtnybtiysqkfyws7db","name":"Sayback"}]}
+      ];
+    }
+
+    // localStorage wrapper
+    function saveData() {
+      localStorage.setItem('drawersData', JSON.stringify(commentBanks));
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem('drawersData');
+      if (saved) {
+        commentBanks = JSON.parse(saved);
+      } else {
+        // Initialize with empty array
+        commentBanks = [];
+      }
+
+      // Always ensure preloaded drawers exist
+      const preloadedBanks = getPreloadedCommentBanks();
+      preloadedBanks.forEach(preloadedBank => {
+        const exists = commentBanks.some(bank => bank.assignmentName === preloadedBank.assignmentName);
+        if (!exists) {
+          commentBanks.unshift(preloadedBank);
+        }
+      });
+
+      saveData(); // Save any changes
+      updateCommentBankList();
+    }
+
+    // Global variable to track which drawer is being archived
+    let drawerToArchiveIndex = -1;
+
+    // Navigation
+    function goToHome(updateHistory = true) {
+      document.getElementById('comment-container').style.display = 'none';
+      document.getElementById('archive-container').style.display = 'none';
+      document.getElementById('landing-container').style.display = 'block';
+      document.querySelector('.container').style.display = 'block';
+      currentCommentBankIndex = -1;
+
+      // Update URL to home
+      if (updateHistory) {
+        history.pushState(null, '', window.location.pathname);
+      }
+    }
+
+    function openCommentBank(index, updateHistory = true) {
+      currentCommentBankIndex = index;
+      const bank = commentBanks[index];
+
+      document.getElementById('landing-container').style.display = 'none';
+      document.getElementById('archive-container').style.display = 'none';
+      document.getElementById('comment-container').style.display = 'block';
+      document.querySelector('.container').style.display = 'none';
+
+      // Set drawer title in the content area
+      document.getElementById('drawer-page-title').textContent = bank.assignmentName;
+
+      // Update search placeholder with drawer name
+      document.getElementById('comment-search').placeholder = `Search within ${bank.assignmentName}`;
+
+      activeTagFilters = [];
+      searchQuery = '';
+      document.getElementById('comment-search').value = '';
+
+      displayComments(bank.comments);
+      displayTagFilters();
+
+      // Update URL with drawer slug
+      if (updateHistory) {
+        const slug = slugify(bank.assignmentName);
+        history.pushState({ drawerIndex: index }, '', `#${slug}`);
+      }
+    }
+
+    function openArchiveDrawer(updateHistory = true) {
+      document.getElementById('landing-container').style.display = 'none';
+      document.getElementById('comment-container').style.display = 'none';
+      document.getElementById('archive-container').style.display = 'block';
+      document.querySelector('.container').style.display = 'none';
+
+      displayArchivedDrawers();
+
+      // Update URL
+      if (updateHistory) {
+        history.pushState({ view: 'archive' }, '', '#archive');
+      }
+    }
+
+    function displayArchivedDrawers() {
+      const list = document.getElementById('archived-drawers-list');
+      list.innerHTML = '';
+
+      const archivedDrawers = commentBanks.filter(bank => bank.archived);
+
+      if (archivedDrawers.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📦</div>
+            <h3>No archived drawers</h3>
+            <p>Archived drawers will appear here</p>
+          </div>
+        `;
+        return;
+      }
+
+      commentBanks.forEach((bank, index) => {
+        if (!bank.archived) return;
+
+        const drawerItem = document.createElement('div');
+        drawerItem.className = 'archived-drawer-item';
+
+        // Name container to hold name and count together
+        const nameContainer = document.createElement('div');
+        nameContainer.className = 'archived-drawer-name-container';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'archived-drawer-name';
+        nameSpan.textContent = bank.assignmentName;
+
+        const cardCount = document.createElement('span');
+        cardCount.className = 'archived-drawer-count';
+        cardCount.textContent = `${bank.comments.length}`;
+        cardCount.title = `${bank.comments.length} card${bank.comments.length !== 1 ? 's' : ''}`;
+
+        nameContainer.appendChild(nameSpan);
+        nameContainer.appendChild(cardCount);
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'archived-drawer-actions';
+
+        const restoreBtn = document.createElement('button');
+        restoreBtn.className = 'archived-action-btn restore-btn';
+        restoreBtn.textContent = '↻ Restore';
+        restoreBtn.title = 'Restore drawer';
+        restoreBtn.onclick = () => {
+          restoreCommentBank(index);
+        };
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'archived-action-btn delete-btn';
+        deleteBtn.textContent = '🗑 Delete';
+        deleteBtn.title = 'Delete drawer permanently';
+        deleteBtn.onclick = () => {
+          deleteArchivedCommentBank(index);
+        };
+
+        actionsDiv.appendChild(restoreBtn);
+        actionsDiv.appendChild(deleteBtn);
+
+        drawerItem.appendChild(nameContainer);
+        drawerItem.appendChild(actionsDiv);
+
+        list.appendChild(drawerItem);
+      });
+    }
+
+    function showArchiveConfirmPopup(index) {
+      drawerToArchiveIndex = index;
+      const drawerName = commentBanks[index].assignmentName;
+      document.getElementById('archive-drawer-name').textContent = `"${drawerName}"`;
+      document.getElementById('archive-confirm-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideArchiveConfirmPopup() {
+      document.getElementById('archive-confirm-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      drawerToArchiveIndex = -1;
+    }
+
+    function confirmArchiveDrawer() {
+      if (drawerToArchiveIndex !== -1) {
+        commentBanks[drawerToArchiveIndex].archived = true;
+        saveData();
+        updateCommentBankList();
+        hideArchiveConfirmPopup();
+      }
+    }
+
+    function restoreCommentBank(index) {
+      commentBanks[index].archived = false;
+      saveData();
+      displayArchivedDrawers();
+      updateCommentBankList();
+    }
+
+    function deleteArchivedCommentBank(index) {
+      const bankName = commentBanks[index].assignmentName;
+      if (confirm(`Permanently delete "${bankName}"? This cannot be undone and will delete all cards in this drawer.`)) {
+        commentBanks.splice(index, 1);
+        saveData();
+        displayArchivedDrawers();
+      }
+    }
+
+    // Display functions
+    function updateCommentBankList() {
+      const list = document.getElementById('comment-bank-list');
+      const addButton = list.querySelector('.add-comment-bank');
+      const archiveButton = list.querySelector('.archive-link-container');
+      const noMessage = document.getElementById('no-comment-banks-message');
+
+      // Clear existing items except add and archive buttons
+      const items = list.querySelectorAll('.comment-bank-link');
+      items.forEach(item => item.remove());
+
+      if (commentBanks.length === 0) {
+        noMessage.style.display = 'block';
+      } else {
+        noMessage.style.display = 'none';
+      }
+
+      commentBanks.forEach((bank, index) => {
+        // Skip archived drawers in main list
+        if (bank.archived) return;
+
+        // Check for drawer search results first
+        const drawerSearch = document.getElementById('drawer-search').value.trim().toLowerCase();
+        let results = [];
+
+        if (drawerSearch) {
+          // Check if drawer name matches
+          const drawerNameMatches = bank.assignmentName.toLowerCase().includes(drawerSearch);
+
+          // Check which cards match
+          results = bank.comments.filter(card => {
+            const title = (card.title || '').toLowerCase();
+            const desc = (card.description || '').toLowerCase();
+            const link = (card.link || '').toLowerCase();
+            return title.includes(drawerSearch) || desc.includes(drawerSearch) || link.includes(drawerSearch);
+          });
+
+          // Skip this drawer if neither the name nor any cards match
+          if (!drawerNameMatches && results.length === 0) {
+            return;
+          }
+        }
+
+        const bankEl = document.createElement('div');
+        bankEl.className = 'comment-bank-link';
+
+        const header = document.createElement('div');
+        header.className = 'comment-bank-header';
+
+        const nameContainer = document.createElement('div');
+        nameContainer.className = 'comment-bank-name-container';
+        nameContainer.style.cursor = 'pointer';
+        nameContainer.onclick = () => openCommentBank(index);
+
+        const name = document.createElement('div');
+        name.className = 'comment-bank-name';
+        name.textContent = bank.assignmentName;
+
+        const count = document.createElement('span');
+        count.className = 'drawer-card-count';
+        count.textContent = bank.comments.length;
+
+        nameContainer.appendChild(name);
+        nameContainer.appendChild(count);
+
+        const actions = document.createElement('div');
+        actions.className = 'comment-bank-actions';
+
+        const archiveBtn = document.createElement('button');
+        archiveBtn.className = 'bank-action-btn bank-archive-btn';
+        archiveBtn.textContent = '📦';
+        archiveBtn.title = 'Archive drawer';
+        archiveBtn.onclick = (e) => {
+          e.stopPropagation();
+          showArchiveConfirmPopup(index);
+        };
+
+        actions.appendChild(archiveBtn);
+        header.appendChild(nameContainer);
+        header.appendChild(actions);
+        bankEl.appendChild(header);
+
+        // Show search results preview if searching and cards match
+        if (drawerSearch && results.length > 0) {
+          const resultsDiv = document.createElement('div');
+          resultsDiv.className = 'drawer-search-results';
+
+          const resultCount = document.createElement('div');
+          resultCount.className = 'search-result-count';
+          resultCount.textContent = `${results.length} match${results.length !== 1 ? 'es' : ''}`;
+          resultsDiv.appendChild(resultCount);
+
+          const preview = document.createElement('div');
+          preview.className = 'search-results-preview';
+
+          results.slice(0, 3).forEach((card, cardIndex) => {
+            const cardPreview = document.createElement('div');
+            cardPreview.className = 'search-result-card-preview';
+            cardPreview.textContent = card.title || 'Untitled';
+            cardPreview.onclick = (e) => {
+              e.stopPropagation();
+              openCommentBank(index);
+            };
+            preview.appendChild(cardPreview);
+          });
+
+          resultsDiv.appendChild(preview);
+          bankEl.appendChild(resultsDiv);
+        }
+
+        list.insertBefore(bankEl, archiveButton);
+      });
+    }
+
+    function displayComments(comments) {
+      const list = document.getElementById('comments-list');
+      list.innerHTML = '';
+
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank) return;
+
+      let filtered = comments;
+
+      // Apply tag filters
+      if (activeTagFilters.length > 0) {
+        filtered = filtered.filter(card => {
+          if (!card.tags || card.tags.length === 0) return false;
+          return activeTagFilters.every(filterId => card.tags.includes(filterId));
+        });
+      }
+
+      // Apply search filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(card => {
+          const title = (card.title || '').toLowerCase();
+          const desc = (card.description || '').toLowerCase();
+          const link = (card.link || '').toLowerCase();
+          return title.includes(query) || desc.includes(query) || link.includes(query);
+        });
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>No cards found</h3><p>Try adjusting your filters or search query</p></div>';
+        return;
+      }
+
+      filtered.forEach((card, originalIndex) => {
+        // Find original index
+        const realIndex = comments.indexOf(card);
+
+        const cardEl = document.createElement('div');
+        cardEl.className = 'comment';
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'comment-header';
+
+        const tagsContainer = document.createElement('div');
+        tagsContainer.className = 'tags-container';
+
+        if (card.tags && card.tags.length > 0) {
+          card.tags.forEach(tagId => {
+            const tagDef = bank.tags.find(t => t.id === tagId);
+            if (tagDef) {
+              const tag = document.createElement('span');
+              tag.className = 'tag';
+              tag.textContent = tagDef.name;
+              tag.style.borderColor = tagDef.color;
+              tag.style.color = tagDef.color;
+              tag.style.backgroundColor = tagDef.color + '20';
+              tagsContainer.appendChild(tag);
+            }
+          });
+        }
+
+        header.appendChild(tagsContainer);
+        cardEl.appendChild(header);
+
+        // Body
+        const body = document.createElement('div');
+        body.className = 'comment-body';
+
+        const titleRow = document.createElement('div');
+        titleRow.className = 'card-title-row';
+
+        const titleDisplay = document.createElement('div');
+        titleDisplay.className = 'card-title-display';
+
+        if (card.link) {
+          const link = document.createElement('a');
+          link.href = card.link;
+          link.target = '_blank';
+          link.className = 'card-title-link';
+          link.textContent = card.title || 'Untitled';
+          titleDisplay.appendChild(link);
+        } else {
+          titleDisplay.textContent = card.title || 'Untitled';
+        }
+
+        titleRow.appendChild(titleDisplay);
+
+        if (card.link) {
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'copy-link-btn';
+          copyBtn.textContent = '🔗';
+          copyBtn.title = 'Copy link';
+          copyBtn.onclick = () => {
+            navigator.clipboard.writeText(card.link).then(() => {
+              copyBtn.textContent = '✓';
+              setTimeout(() => copyBtn.textContent = '🔗', 1000);
+            });
+          };
+          titleRow.appendChild(copyBtn);
+        }
+
+        body.appendChild(titleRow);
+
+        if (card.description) {
+          const descWrapper = document.createElement('div');
+          descWrapper.className = 'card-description-wrapper';
+
+          const desc = document.createElement('div');
+          desc.className = 'card-description-display collapsed';
+          desc.textContent = card.description;
+
+          const toggle = document.createElement('button');
+          toggle.className = 'description-toggle';
+          toggle.textContent = 'Show more';
+          toggle.onclick = () => {
+            if (desc.classList.contains('collapsed')) {
+              desc.classList.remove('collapsed');
+              toggle.textContent = 'Show less';
+            } else {
+              desc.classList.add('collapsed');
+              toggle.textContent = 'Show more';
+            }
+          };
+
+          descWrapper.appendChild(desc);
+          descWrapper.appendChild(toggle);
+          body.appendChild(descWrapper);
+        }
+
+        cardEl.appendChild(body);
+
+        // Footer
+        const footer = document.createElement('div');
+        footer.className = 'comment-footer';
+
+        const actions = document.createElement('div');
+        actions.className = 'comment-actions-inline';
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => editComment(realIndex);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteComment(realIndex);
+
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+        footer.appendChild(actions);
+        cardEl.appendChild(footer);
+
+        list.appendChild(cardEl);
+      });
+    }
+
+    function displayTagFilters() {
+      const container = document.getElementById('tag-filters');
+      const countSpan = document.getElementById('filter-count');
+      const clearBtn = document.getElementById('clear-filters-btn');
+
+      container.innerHTML = '';
+
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank || !bank.tags || bank.tags.length === 0) {
+        countSpan.textContent = 'No tags available';
+        clearBtn.style.display = 'none';
+        return;
+      }
+
+      countSpan.textContent = activeTagFilters.length > 0
+        ? `${activeTagFilters.length} filter${activeTagFilters.length !== 1 ? 's' : ''} active`
+        : 'Filter by tags';
+
+      clearBtn.style.display = activeTagFilters.length > 0 ? 'block' : 'none';
+
+      bank.tags.forEach(tag => {
+        const filterEl = document.createElement('span');
+        filterEl.className = 'tag-filter';
+        filterEl.textContent = tag.name;
+        filterEl.style.borderColor = tag.color;
+        filterEl.style.color = tag.color;
+        filterEl.style.backgroundColor = tag.color + '20';
+
+        if (activeTagFilters.includes(tag.id)) {
+          filterEl.classList.add('active');
+        }
+
+        filterEl.onclick = () => {
+          if (activeTagFilters.includes(tag.id)) {
+            activeTagFilters = activeTagFilters.filter(id => id !== tag.id);
+          } else {
+            activeTagFilters.push(tag.id);
+          }
+          displayTagFilters();
+          displayComments(bank.comments);
+        };
+
+        container.appendChild(filterEl);
+      });
+    }
+
+    // CRUD operations
+    function addComment() {
+      document.getElementById('card-title').value = '';
+      document.getElementById('card-link').value = '';
+      document.getElementById('card-description').value = '';
+      document.getElementById('add-comment-popup').removeAttribute('data-index');
+      document.getElementById('comment-modal-title').textContent = 'New Card';
+      populateModalTags();
+      showAddCommentPopup();
+    }
+
+    function editComment(index) {
+      const bank = commentBanks[currentCommentBankIndex];
+      const card = bank.comments[index];
+
+      document.getElementById('card-title').value = card.title || '';
+      document.getElementById('card-link').value = card.link || '';
+      document.getElementById('card-description').value = card.description || '';
+      document.getElementById('add-comment-popup').setAttribute('data-index', index);
+      document.getElementById('comment-modal-title').textContent = 'Edit Card';
+      populateModalTags(card.tags || []);
+      showAddCommentPopup();
+    }
+
+    function deleteComment(index) {
+      if (!confirm('Delete this card?')) return;
+
+      const bank = commentBanks[currentCommentBankIndex];
+      bank.comments.splice(index, 1);
+
+      saveData();
+      displayComments(bank.comments);
+    }
+
+    function saveComment() {
+      const title = document.getElementById('card-title').value.trim();
+      const link = document.getElementById('card-link').value.trim();
+      const description = document.getElementById('card-description').value.trim();
+
+      if (!title) {
+        alert('Please enter a title');
+        return;
+      }
+
+      const bank = commentBanks[currentCommentBankIndex];
+      const selectedTags = Array.from(document.querySelectorAll('.modal-tag.selected'))
+        .map(el => el.dataset.tagId);
+
+      const card = { title, link, description, tags: selectedTags };
+
+      const indexAttr = document.getElementById('add-comment-popup').getAttribute('data-index');
+      if (indexAttr !== null) {
+        // Edit
+        bank.comments[parseInt(indexAttr)] = card;
+      } else {
+        // New
+        bank.comments.push(card);
+      }
+
+      saveData();
+      displayComments(bank.comments);
+      hideAddCommentPopup();
+    }
+
+    function populateModalTags(selectedTags = []) {
+      const container = document.getElementById('modal-tags-container');
+      container.innerHTML = '';
+
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank || !bank.tags || bank.tags.length === 0) {
+        container.innerHTML = '<span class="no-tags-message">No tags available</span>';
+        return;
+      }
+
+      bank.tags.forEach(tag => {
+        const tagEl = document.createElement('span');
+        tagEl.className = 'modal-tag';
+        tagEl.textContent = tag.name;
+        tagEl.dataset.tagId = tag.id;
+        tagEl.style.borderColor = tag.color;
+        tagEl.style.color = tag.color;
+        tagEl.style.backgroundColor = tag.color + '20';
+
+        if (selectedTags.includes(tag.id)) {
+          tagEl.classList.add('selected');
+        }
+
+        tagEl.onclick = () => {
+          tagEl.classList.toggle('selected');
+        };
+
+        container.appendChild(tagEl);
+      });
+    }
+
+    // Tag management
+    function showTagManager() {
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank) return;
+
+      displayTagList();
+      document.getElementById('tag-manager-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function displayTagList() {
+      const list = document.getElementById('tag-list');
+      list.innerHTML = '';
+
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank.tags || bank.tags.length === 0) {
+        list.innerHTML = '<div style="padding: 20px; text-align: center; color: #888;">No tags created yet</div>';
+        return;
+      }
+
+      bank.tags.forEach((tag, index) => {
+        const item = document.createElement('div');
+        item.className = 'tag-list-item';
+
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'tag';
+        tagSpan.textContent = tag.name;
+        tagSpan.style.borderColor = tag.color;
+        tagSpan.style.color = tag.color;
+        tagSpan.style.backgroundColor = tag.color + '20';
+
+        const actions = document.createElement('div');
+        actions.className = 'tag-list-actions';
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.style.background = '#fee';
+        deleteBtn.style.color = '#c00';
+        deleteBtn.onclick = () => {
+          if (!confirm(`Delete tag "${tag.name}"?`)) return;
+          bank.tags.splice(index, 1);
+          // Remove from all cards
+          bank.comments.forEach(card => {
+            if (card.tags) {
+              card.tags = card.tags.filter(id => id !== tag.id);
+            }
+          });
+          saveData();
+          displayTagList();
+          displayTagFilters();
+          displayComments(bank.comments);
+        };
+
+        actions.appendChild(deleteBtn);
+        item.appendChild(tagSpan);
+        item.appendChild(actions);
+        list.appendChild(item);
+      });
+    }
+
+    function addTag() {
+      const name = document.getElementById('new-tag-name').value.trim();
+      const color = document.getElementById('new-tag-color').value;
+
+      if (!name) {
+        alert('Please enter a tag name');
+        return;
+      }
+
+      const bank = commentBanks[currentCommentBankIndex];
+      if (!bank.tags) bank.tags = [];
+
+      bank.tags.push({
+        id: generateId(),
+        name: name,
+        color: color
+      });
+
+      saveData();
+      displayTagList();
+      displayTagFilters();
+
+      document.getElementById('new-tag-name').value = '';
+      document.getElementById('new-tag-color').value = '#6b2d8f';
+    }
+
+    // Download/Upload
+    function showDownloadPopup() {
+      const container = document.getElementById('download-options');
+      container.innerHTML = '';
+
+      if (commentBanks.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #888;">No drawers to download</p>';
+      } else {
+        commentBanks.forEach((bank, index) => {
+          const option = document.createElement('div');
+          option.style.padding = '8px';
+          option.style.marginBottom = '4px';
+          option.style.background = '#f5f5f5';
+          option.style.borderRadius = '6px';
+          option.style.cursor = 'pointer';
+          option.textContent = bank.assignmentName;
+          option.onclick = () => downloadDrawer(index);
+          container.appendChild(option);
+        });
+      }
+
+      document.getElementById('download-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function downloadDrawer(index) {
+      const bank = commentBanks[index];
+      const json = JSON.stringify(bank, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${bank.assignmentName.replace(/[^a-z0-9]/gi, '_')}.drawer`;
+      a.click();
+      URL.revokeObjectURL(url);
+      hideDownloadPopup();
+    }
+
+    function uploadDrawer() {
+      const input = document.getElementById('upload-input');
+      const file = input.files[0];
+
+      if (!file) {
+        alert('Please select a file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          commentBanks.push(data);
+          saveData();
+          updateCommentBankList();
+          hideUploadPopup();
+          input.value = '';
+        } catch (err) {
+          alert('Invalid file format');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Modal controls
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('assignment-name').focus();
+    }
+
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function showAddCommentPopup() {
+      document.getElementById('add-comment-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideAddCommentPopup() {
+      document.getElementById('add-comment-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function hideDownloadPopup() {
+      document.getElementById('download-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function hideUploadPopup() {
+      document.getElementById('upload-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function hideTagManager() {
+      document.getElementById('tag-manager-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function hideAbout() {
+      document.getElementById('about-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function showAbout() {
+      document.getElementById('about-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    // Event listeners
+    document.getElementById('addCommentBankBtn').onclick = showPopup;
+    document.getElementById('goToArchiveBtn').onclick = () => openArchiveDrawer();
+    document.getElementById('cancelBankBtn').onclick = hidePopup;
+    document.getElementById('createBankBtn').onclick = () => {
+      const name = document.getElementById('assignment-name').value.trim();
+      if (!name) {
+        alert('Please enter a drawer name');
+        return;
+      }
+
+      if (commentBanks.some(b => b.assignmentName.toLowerCase() === name.toLowerCase())) {
+        alert('A drawer with this name already exists');
+        return;
+      }
+
+      commentBanks.push({
+        assignmentName: name,
+        comments: [],
+        tags: getBasicTags(),
+        archived: false
+      });
+
+      saveData();
+      updateCommentBankList();
+      document.getElementById('assignment-name').value = '';
+      hidePopup();
+    };
+
+    document.getElementById('backToHomeBtn').onclick = goToHome;
+    document.getElementById('backToHomeFromArchive').onclick = goToHome;
+    document.querySelector('.logo-container').onclick = goToHome;
+    document.getElementById('main-title').onclick = goToHome;
+    document.getElementById('addCommentBtn').onclick = addComment;
+    document.getElementById('saveCommentBtn').onclick = saveComment;
+    document.getElementById('cancelCommentBtn').onclick = hideAddCommentPopup;
+    document.getElementById('manageTagsBtn').onclick = showTagManager;
+    document.getElementById('doneTagsBtn').onclick = hideTagManager;
+    document.getElementById('addTagBtn').onclick = addTag;
+    document.getElementById('optionsDropdownBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.toggle('show');
+    };
+
+    document.getElementById('aboutBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      showAbout();
+    };
+
+    document.getElementById('archiveBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      openArchiveDrawer();
+    };
+
+    document.getElementById('confirmArchiveBtn').onclick = confirmArchiveDrawer;
+    document.getElementById('cancelArchiveBtn').onclick = hideArchiveConfirmPopup;
+
+    document.getElementById('closeAboutBtn').onclick = hideAbout;
+
+    document.getElementById('downloadBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      showDownloadPopup();
+    };
+
+    document.getElementById('cancelDownloadBtn').onclick = hideDownloadPopup;
+
+    document.getElementById('uploadBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      document.getElementById('upload-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    };
+
+    document.getElementById('uploadConfirmBtn').onclick = uploadDrawer;
+    document.getElementById('cancelUploadBtn').onclick = hideUploadPopup;
+
+    document.getElementById('resetBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      document.getElementById('clear-data-popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    };
+
+    document.getElementById('yesClearBtn').onclick = () => {
+      commentBanks = [];
+      saveData();
+      updateCommentBankList();
+      goToHome();
+      document.getElementById('clear-data-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    };
+
+    document.getElementById('noClearBtn').onclick = () => {
+      document.getElementById('clear-data-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    };
+
+    document.getElementById('toggle-filters-btn').onclick = () => {
+      document.getElementById('tag-filters').classList.toggle('hidden');
+    };
+
+    document.getElementById('clear-filters-btn').onclick = () => {
+      activeTagFilters = [];
+      const bank = commentBanks[currentCommentBankIndex];
+      displayTagFilters();
+      displayComments(bank.comments);
+    };
+
+    document.getElementById('comment-search').oninput = (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      const bank = commentBanks[currentCommentBankIndex];
+      displayComments(bank.comments);
+
+      const clearBtn = document.getElementById('comment-search-clear');
+      clearBtn.style.display = searchQuery ? 'block' : 'none';
+    };
+
+    document.getElementById('comment-search-clear').onclick = () => {
+      document.getElementById('comment-search').value = '';
+      searchQuery = '';
+      const bank = commentBanks[currentCommentBankIndex];
+      displayComments(bank.comments);
+      document.getElementById('comment-search-clear').style.display = 'none';
+    };
+
+    document.getElementById('drawer-search').oninput = (e) => {
+      updateCommentBankList();
+      const clearBtn = document.getElementById('drawer-search-clear');
+      clearBtn.style.display = e.target.value ? 'block' : 'none';
+    };
+
+    document.getElementById('drawer-search-clear').onclick = () => {
+      document.getElementById('drawer-search').value = '';
+      updateCommentBankList();
+      document.getElementById('drawer-search-clear').style.display = 'none';
+    };
+
+    // Close overlay
+    document.getElementById('overlay').onclick = () => {
+      hidePopup();
+      hideAddCommentPopup();
+      hideDownloadPopup();
+      hideUploadPopup();
+      hideTagManager();
+      hideAbout();
+      hideArchiveConfirmPopup();
+      document.getElementById('clear-data-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+    };
+
+    // Close dropdown when clicking outside
+    window.onclick = (e) => {
+      if (!e.target.matches('.toggle-btn')) {
+        const dropdown = document.getElementById('optionsDropdownMenu');
+        if (dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+
+    // Enter key for new drawer
+    document.getElementById('assignment-name').onkeypress = (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('createBankBtn').click();
+      }
+    };
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (event) => {
+      const hash = window.location.hash.substring(1); // Remove the '#'
+
+      if (!hash) {
+        // No hash, go to home
+        goToHome(false); // false = don't update history again
+      } else if (hash === 'archive') {
+        // Open archive
+        openArchiveDrawer(false);
+      } else {
+        // Find drawer by slug
+        const index = commentBanks.findIndex(bank => slugify(bank.assignmentName) === hash);
+        if (index !== -1) {
+          openCommentBank(index, false); // false = don't update history again
+        } else {
+          goToHome(false);
+        }
+      }
+    });
+
+    // Load drawer from URL on initial page load
+    function loadFromURL() {
+      const hash = window.location.hash.substring(1);
+      if (hash === 'archive') {
+        openArchiveDrawer(false);
+      } else if (hash) {
+        const index = commentBanks.findIndex(bank => slugify(bank.assignmentName) === hash);
+        if (index !== -1) {
+          openCommentBank(index, false);
+        }
+      }
+    }
+
+    // Initialize
+    loadData();
+    loadFromURL();
+  </script>
+</body>
+</html>
