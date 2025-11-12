@@ -2014,6 +2014,7 @@ header {
         <button class="toggle-btn" id="optionsDropdownBtn" title="Options">∨</button>
         <div class="options-dropdown-menu" id="optionsDropdownMenu">
           <button class="dropdown-item" id="aboutBtn">About</button>
+          <button class="dropdown-item" id="reportBugBtn">Report Bug</button>
           <button class="dropdown-item" id="archiveBtn">Archive</button>
           <button class="dropdown-item" id="uploadBtn">Upload Drawer</button>
           <button class="dropdown-item" id="downloadBtn">Download Drawer</button>
@@ -3676,6 +3677,11 @@ header {
     document.getElementById('aboutBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
       showAbout();
+    };
+
+    document.getElementById('reportBugBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      window.open('https://forms.gle/8dLWgUPiDJGExTQ96', '_blank');
     };
 
     document.getElementById('archiveBtn').onclick = () => {
