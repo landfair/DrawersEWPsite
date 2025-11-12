@@ -884,6 +884,21 @@ header {
   color: #e67e22;
 }
 
+.bank-move-btn {
+  font-size: 0.85rem;
+  padding: 4px 6px;
+}
+
+.bank-move-btn:hover {
+  color: var(--primary-color);
+}
+
+.drawer-moved-highlight {
+  border: 2px solid var(--accent-purple-light) !important;
+  box-shadow: 0 0 0 4px var(--accent-purple-lightest) !important;
+  transition: all 0.3s ease;
+}
+
 .no-comment-banks {
   text-align: center;
   font-style: italic;
@@ -1853,6 +1868,33 @@ header {
   font-weight: 600;
 }
 
+.archived-drawers-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+  margin: 32px 0 16px 0;
+  text-transform: uppercase;
+}
+
+.archived-search-result {
+  border: 2px dashed var(--border-color-strong) !important;
+}
+
+.archived-badge {
+  background: #f39c12;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .archived-drawer-item {
   display: flex;
   align-items: center;
@@ -1942,6 +1984,20 @@ header {
     padding: 6px 12px;
     font-size: 0.85rem;
   }
+}
+
+.footer {
+  text-align: center;
+  padding: 24px 20px;
+  margin-top: 48px;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--background-color);
+}
+
+.footer-copyright {
+  font-weight: 500;
 }
   </style>
 </head>
@@ -2318,6 +2374,17 @@ header {
     </div>
   </div>
 
+  <footer class="footer">
+    <div class="footer-copyright">
+      © <span id="copyright-year"></span> Alexander Landfair. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Set current year for copyright
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+
   <script>
     // State management
     let commentBanks = [];
@@ -2415,7 +2482,7 @@ header {
       }
     }
 
-    function openCommentBank(index, updateHistory = true) {
+    function openCommentBank(index, updateHistory = true, scrollToCardIndex = null) {
       currentCommentBankIndex = index;
       const bank = commentBanks[index];
 
@@ -2442,6 +2509,21 @@ header {
 
       displayComments(bank.comments);
       displayTagFilters();
+
+      // Scroll to specific card if requested
+      if (scrollToCardIndex !== null) {
+        setTimeout(() => {
+          const targetCard = document.querySelector(`[data-card-index="${scrollToCardIndex}"]`);
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Briefly highlight the card
+            targetCard.style.backgroundColor = 'var(--accent-purple-lightest)';
+            setTimeout(() => {
+              targetCard.style.backgroundColor = '';
+            }, 2000);
+          }
+        }, 100);
+      }
 
       // Update URL with drawer slug
       if (updateHistory) {
@@ -2602,17 +2684,34 @@ header {
         const drawerName = bank.assignmentName;
         const cardCount = bank.comments.length;
 
-        const subject = encodeURIComponent(`Drawers: ${drawerName}`);
+        const subject = encodeURIComponent(`Shared Drawer: ${drawerName}`);
         const body = encodeURIComponent(
-          `I'd like to share this drawer with you: "${drawerName}"\n\n` +
-          `This drawer contains ${cardCount} card${cardCount !== 1 ? 's' : ''}.\n\n` +
-          `To import this drawer:\n` +
-          `1. Download the attached file (or copy the .drawer file data below)\n` +
-          `2. Open Drawers at https://your-drawers-url.com\n` +
-          `3. Click Options (⚙️) → Upload Drawer\n` +
-          `4. Select the .drawer file or paste the .drawer file data\n\n` +
-          `---\n\n` +
-          `.drawer File Data:\n${JSON.stringify(bank, null, 2)}`
+          `Hi there!\n\n` +
+          `I'm sharing a Drawers resource collection with you: "${drawerName}"\n` +
+          `This drawer contains ${cardCount} resource card${cardCount !== 1 ? 's' : ''}.\n\n` +
+          `===========================================\n` +
+          `HOW TO IMPORT THIS DRAWER (for the recipient):\n` +
+          `===========================================\n\n` +
+          `STEP 1: Copy the .drawer file data\n` +
+          `   → Scroll down to the bottom of this email\n` +
+          `   → Select ALL the text between the lines marked "START COPYING HERE" and "STOP COPYING HERE"\n` +
+          `   → Copy it (Cmd+C or Ctrl+C)\n\n` +
+          `STEP 2: Open the Drawers web app\n` +
+          `   → Visit: https://landfair.github.io/DrawersEWPsite/\n\n` +
+          `STEP 3: Upload the drawer\n` +
+          `   → Click the Options button (⚙️) in the top-right corner\n` +
+          `   → Select "Upload Drawer"\n` +
+          `   → Choose "Paste .drawer File Data"\n` +
+          `   → Paste the data you copied (Cmd+V or Ctrl+V)\n` +
+          `   → Click "Upload"\n\n` +
+          `That's it! The drawer and all its cards will appear in your Drawers.\n\n\n` +
+          `═══════════════════════════════════════════\n` +
+          `>>> START COPYING HERE <<<\n` +
+          `═══════════════════════════════════════════\n\n` +
+          `${JSON.stringify(bank, null, 2)}\n\n` +
+          `═══════════════════════════════════════════\n` +
+          `>>> STOP COPYING HERE <<<\n` +
+          `═══════════════════════════════════════════`
         );
 
         window.location.href = `mailto:?subject=${subject}&body=${body}`;
@@ -2645,6 +2744,72 @@ header {
       }
     }
 
+    function highlightMovedDrawer(drawerName) {
+      requestAnimationFrame(() => {
+        const drawerElements = document.querySelectorAll('.comment-bank-link');
+        drawerElements.forEach(el => {
+          const nameEl = el.querySelector('.comment-bank-name');
+          if (nameEl && nameEl.textContent === drawerName) {
+            el.classList.add('drawer-moved-highlight');
+            setTimeout(() => {
+              el.classList.remove('drawer-moved-highlight');
+            }, 2000);
+          }
+        });
+      });
+    }
+
+    function moveDrawerUp(index) {
+      // Can't move up if it's already at the top or if it's the first non-archived drawer
+      const unarchivedDrawers = commentBanks.filter(b => !b.archived);
+      const currentDrawer = commentBanks[index];
+      const drawerName = currentDrawer.assignmentName;
+
+      // Find previous unarchived drawer
+      let prevIndex = -1;
+      for (let i = index - 1; i >= 0; i--) {
+        if (!commentBanks[i].archived) {
+          prevIndex = i;
+          break;
+        }
+      }
+
+      if (prevIndex !== -1) {
+        // Swap the drawers
+        [commentBanks[index], commentBanks[prevIndex]] = [commentBanks[prevIndex], commentBanks[index]];
+        saveData();
+        updateCommentBankList();
+
+        // Highlight the moved drawer
+        highlightMovedDrawer(drawerName);
+      }
+    }
+
+    function moveDrawerDown(index) {
+      // Can't move down if it's already at the bottom or if it's the last non-archived drawer
+      const currentDrawer = commentBanks[index];
+      const drawerName = currentDrawer.assignmentName;
+
+      // Find next unarchived drawer
+      let nextIndex = -1;
+      for (let i = index + 1; i < commentBanks.length; i++) {
+        if (!commentBanks[i].archived) {
+          nextIndex = i;
+          break;
+        }
+      }
+
+      if (nextIndex !== -1) {
+        // Swap the drawers
+        [commentBanks[index], commentBanks[nextIndex]] = [commentBanks[nextIndex], commentBanks[index]];
+        saveData();
+        updateCommentBankList();
+
+        // Highlight the moved drawer
+        highlightMovedDrawer(drawerName);
+      }
+    }
+
     // Display functions
     function updateCommentBankList() {
       const list = document.getElementById('comment-bank-list');
@@ -2653,7 +2818,7 @@ header {
       const noMessage = document.getElementById('no-comment-banks-message');
 
       // Clear existing items except add and archive buttons
-      const items = list.querySelectorAll('.comment-bank-link');
+      const items = list.querySelectorAll('.comment-bank-link, .archived-drawers-section-header');
       items.forEach(item => item.remove());
 
       if (commentBanks.length === 0) {
@@ -2662,12 +2827,13 @@ header {
         noMessage.style.display = 'none';
       }
 
+      // Get search query once
+      const drawerSearch = document.getElementById('drawer-search').value.trim().toLowerCase();
+
       commentBanks.forEach((bank, index) => {
         // Skip archived drawers in main list
         if (bank.archived) return;
 
-        // Check for drawer search results first
-        const drawerSearch = document.getElementById('drawer-search').value.trim().toLowerCase();
         let results = [];
 
         if (drawerSearch) {
@@ -2713,6 +2879,24 @@ header {
         const actions = document.createElement('div');
         actions.className = 'comment-bank-actions';
 
+        const upBtn = document.createElement('button');
+        upBtn.className = 'bank-action-btn bank-move-btn';
+        upBtn.textContent = '∧';
+        upBtn.title = 'Move drawer up';
+        upBtn.onclick = (e) => {
+          e.stopPropagation();
+          moveDrawerUp(index);
+        };
+
+        const downBtn = document.createElement('button');
+        downBtn.className = 'bank-action-btn bank-move-btn';
+        downBtn.textContent = '∨';
+        downBtn.title = 'Move drawer down';
+        downBtn.onclick = (e) => {
+          e.stopPropagation();
+          moveDrawerDown(index);
+        };
+
         const shareBtn = document.createElement('button');
         shareBtn.className = 'bank-action-btn bank-share-btn';
         shareBtn.textContent = '[share]';
@@ -2731,6 +2915,8 @@ header {
           showArchiveConfirmPopup(index);
         };
 
+        actions.appendChild(upBtn);
+        actions.appendChild(downBtn);
         actions.appendChild(shareBtn);
         actions.appendChild(archiveBtn);
         header.appendChild(nameContainer);
@@ -2754,9 +2940,11 @@ header {
             const cardPreview = document.createElement('div');
             cardPreview.className = 'search-result-card-preview';
             cardPreview.textContent = card.title || 'Untitled';
+            // Find the actual index of this card in the bank's comments array
+            const actualCardIndex = bank.comments.indexOf(card);
             cardPreview.onclick = (e) => {
               e.stopPropagation();
-              openCommentBank(index);
+              openCommentBank(index, true, actualCardIndex);
             };
             preview.appendChild(cardPreview);
           });
@@ -2767,6 +2955,108 @@ header {
 
         list.insertBefore(bankEl, archiveButton);
       });
+
+      // Show archived drawers if there's a search query
+      if (drawerSearch) {
+        const archivedDrawers = commentBanks.filter(bank => bank.archived);
+        const archivedWithResults = [];
+
+        archivedDrawers.forEach((bank, originalIndex) => {
+          // Find the actual index in commentBanks array
+          const index = commentBanks.indexOf(bank);
+
+          // Check if drawer name matches
+          const drawerNameMatches = bank.assignmentName.toLowerCase().includes(drawerSearch);
+
+          // Check which cards match
+          const results = bank.comments.filter(card => {
+            const title = (card.title || '').toLowerCase();
+            const desc = (card.description || '').toLowerCase();
+            const link = (card.link || '').toLowerCase();
+            return title.includes(drawerSearch) || desc.includes(drawerSearch) || link.includes(drawerSearch);
+          });
+
+          // Skip this drawer if neither the name nor any cards match
+          if (!drawerNameMatches && results.length === 0) {
+            return;
+          }
+
+          archivedWithResults.push({ bank, index, results });
+        });
+
+        // Add archived section header if there are archived results
+        if (archivedWithResults.length > 0) {
+          const archivedHeader = document.createElement('div');
+          archivedHeader.className = 'archived-drawers-section-header';
+          archivedHeader.innerHTML = '📦 ARCHIVED DRAWERS';
+          list.insertBefore(archivedHeader, archiveButton);
+        }
+
+        // Display each archived drawer with results
+        archivedWithResults.forEach(({ bank, index, results }) => {
+          const bankEl = document.createElement('div');
+          bankEl.className = 'comment-bank-link archived-search-result';
+
+            const header = document.createElement('div');
+            header.className = 'comment-bank-header';
+
+            const nameContainer = document.createElement('div');
+            nameContainer.className = 'comment-bank-name-container';
+            nameContainer.style.cursor = 'pointer';
+            nameContainer.onclick = () => openCommentBank(index);
+
+            const name = document.createElement('div');
+            name.className = 'comment-bank-name';
+            name.textContent = bank.assignmentName;
+
+            const count = document.createElement('span');
+            count.className = 'drawer-card-count';
+            count.textContent = bank.comments.length;
+
+            nameContainer.appendChild(name);
+            nameContainer.appendChild(count);
+
+            const archivedBadge = document.createElement('span');
+            archivedBadge.className = 'archived-badge';
+            archivedBadge.textContent = 'ARCHIVED';
+
+            header.appendChild(nameContainer);
+            header.appendChild(archivedBadge);
+            bankEl.appendChild(header);
+
+            // Show search results preview
+            if (results.length > 0) {
+              const resultsDiv = document.createElement('div');
+              resultsDiv.className = 'drawer-search-results';
+
+              const resultCount = document.createElement('div');
+              resultCount.className = 'search-result-count';
+              resultCount.textContent = `${results.length} match${results.length !== 1 ? 'es' : ''}`;
+              resultsDiv.appendChild(resultCount);
+
+              const preview = document.createElement('div');
+              preview.className = 'search-results-preview';
+
+              results.slice(0, 3).forEach((card, cardIndex) => {
+                const cardPreview = document.createElement('div');
+                cardPreview.className = 'search-result-card-preview';
+                cardPreview.textContent = card.title || 'Untitled';
+                // Find the actual index of this card in the bank's comments array
+                const actualCardIndex = bank.comments.indexOf(card);
+                cardPreview.onclick = (e) => {
+                  e.stopPropagation();
+                  openCommentBank(index, true, actualCardIndex);
+                };
+                preview.appendChild(cardPreview);
+              });
+
+              resultsDiv.appendChild(preview);
+              bankEl.appendChild(resultsDiv);
+            }
+
+          list.insertBefore(bankEl, archiveButton);
+        });
+      }
     }
 
     function displayComments(comments) {
@@ -2808,6 +3098,7 @@ header {
 
         const cardEl = document.createElement('div');
         cardEl.className = 'comment';
+        cardEl.dataset.cardIndex = realIndex;
 
         // Header
         const header = document.createElement('div');
