@@ -886,21 +886,6 @@ header {
   color: #e67e22;
 }
 
-.bank-move-btn {
-  font-size: 0.85rem;
-  padding: 4px 6px;
-}
-
-.bank-move-btn:hover {
-  color: var(--primary-color);
-}
-
-.drawer-moved-highlight {
-  border: 2px solid var(--accent-purple-light) !important;
-  box-shadow: 0 0 0 4px var(--accent-purple-lightest) !important;
-  transition: all 0.3s ease;
-}
-
 .no-comment-banks {
   text-align: center;
   font-style: italic;
@@ -2042,6 +2027,7 @@ header {
           <button class="dropdown-item" id="uploadBtn">Upload Drawer</button>
           <button class="dropdown-item" id="downloadBtn">Download Drawer</button>
           <button class="dropdown-item" id="resetBtn">Reset All Data</button>
+          <button class="dropdown-item" id="getChromeExtBtn">Get Chrome Extension</button>
         </div>
       </div>
     </div>
@@ -2131,6 +2117,43 @@ header {
     </div>
     <div class="popup-buttons">
       <button id="closeAboutBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Welcome Popup -->
+  <div id="welcome-popup" class="popup welcome-modal">
+    <div class="popup-header">
+      <h2>Welcome to Drawers! 👋</h2>
+    </div>
+    <div class="popup-body">
+      <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin-bottom: 20px;">
+        Thanks for trying out Drawers! This is the standalone web version, perfect for exploring the features.
+      </p>
+
+      <div class="welcome-section">
+        <h3 style="color: var(--primary-color); font-size: 1.1rem; font-weight: 600; margin-bottom: 12px;">
+          Want a better experience?
+        </h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">
+          The <strong>Chrome Extension</strong> version gives you:
+        </p>
+        <ul style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-left: 20px; margin-bottom: 20px;">
+          <li>Quick access from your browser toolbar</li>
+          <li>Faster loading and smoother performance</li>
+          <li>Gather tabs directly from any webpage</li>
+          <li>All the same features you see here</li>
+        </ul>
+
+        <a href="https://landfair.github.io/DrawersInstructions/"
+           target="_blank"
+           class="welcome-cta-button"
+           style="display: inline-block; padding: 12px 24px; background: var(--primary-gradient); color: white; text-decoration: none; border-radius: var(--radius-md); font-weight: 600; box-shadow: var(--shadow-sm); transition: all var(--transition-base);">
+          Get the Chrome Extension →
+        </a>
+      </div>
+    </div>
+    <div class="popup-buttons">
+      <button id="closeWelcomeBtn">Continue with Web Version</button>
     </div>
   </div>
 
@@ -2458,7 +2481,7 @@ header {
 
     // Get preloaded drawers
     function getPreloadedCommentBanks() {
-      return [
+      const drawers = [
         {"archived":false,"assignmentName":"Class Activities","comments":[{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":["mhtnxr84gj0t2z2ke2"],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":["mhtnxr84z2dxx8k58f"],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":["mhtnxr84gj0t2z2ke2"],"title":"Says/Does Worksheet Generator"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":["mhtnxr84rvhsbudnmik"],"title":"Writing-center.org"}],"tags":[{"color":"#16a085","id":"mhtnxr845ahe29ucwed","name":"Group Work"},{"color":"#2980b9","id":"mhtnxr84sl102glan3","name":"Discussion Prompts"},{"color":"#f39c12","id":"mhtnxr84gj0t2z2ke2","name":"Exercises"},{"color":"#c0392b","id":"mhtnxr84z2dxx8k58f","name":"Games"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
         {"archived":false,"assignmentName":"Digital Tools","comments":[{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"U even revise, bro?"},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Worksheet Generator"},{"description":"A digital version of the UnJumble analog, in-class activity","link":"https://landfair.github.io/UnJumble/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"UnJumble Daily Puzzle"},{"description":"A digital version of Tana Wojczuk's popular Op-ed Bingo in-class activity","link":"https://landfair.github.io/OpEdBingo/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Op-ed Bingo"},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":["mhsbwvz5elnu3gz5hdb","mhsc1qakgdjly1jblft"],"title":"Says/Does Worksheet Generator"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Say More Here"},{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"Writing-center.org"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":["mhsbwvz5elnu3gz5hdb"],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":["mhsbwvz5elnu3gz5hdb","mhsbx76cietl327h3pr"],"title":"EWP Writing Research Exchange"}],"tags":[{"color":"#6b2d8f","id":"mhsbwvz5elnu3gz5hdb","name":"Landfair"},{"color":"#1b6933","id":"mhsbx76cietl327h3pr","name":"EWP"},{"color":"#8f342d","id":"mhsbxf41elwnjwn4w46","name":"Zaretsky"},{"color":"#d94717","id":"mhsbxqezwjms7lc0tyg","name":"Lesson plan"},{"color":"#6b2d8f","id":"mhsc1qakgdjly1jblft","name":"Wojczuk"}]},
         {"archived":false,"assignmentName":"Faculty Resources","comments":[{"description":"EWP Guide to Making Feedback and Grading More Effective and Efficient","link":"https://sites.google.com/nyu.edu/ewp-resources/commenting-grading?authuser=0","tags":[],"title":"Commenting & Grading","tags":["mhtnxr84sy9soky0bi"]},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here","tags":["mhtnxr84tzsdiahlbs"]},{"description":"Learning outcomes and parameters for all EXPOS courses","link":"https://wp.nyu.edu/fas-ewp/parameters/","tags":[],"title":"EWP Course Parameters","tags":["mhtnxr84iswg5u99ali","mhtnxr84un3aj7zaic"]},{"description":"EWP Vocabulary for Writing","link":"https://wp.nyu.edu/fas-ewp/ewp-vocabulary-for-writing/","tags":[],"title":"EWP Vocabulary","tags":["mhtnxr84iswg5u99ali"]},{"description":"Fall 2025","link":"https://drive.google.com/file/d/1g7e7pXIf3rl8GO_jl9bNx5oMgVKf7-h2/view","tags":[],"title":"EWP Faculty Handbook","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"]},{"description":"Resources for antiracist pedagogy","link":"https://sites.google.com/nyu.edu/ewp-resources/antiracist-pedagogies?authuser=0","tags":[],"title":"Antiracist Pedagogies","tags":["mhtnxr84sy9soky0bi"]},{"description":"Generate and print \"says/does\" activity for developing close reading and metacognitive skills","link":"https://landfair.github.io/saysdoes/","tags":[],"title":"Says/Does Worksheet Generator","tags":["mhtnxr84tzsdiahlbs"]},{"description":"Generate handouts for a close-reading activity that asks students to \"unjumble\" sentences in a paragraph.","link":"https://landfair.github.io/AnalogUnJumble/","tags":[],"title":"UnJumble Worksheet Generator","tags":["mhtnxr84tzsdiahlbs"]},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms","tags":["mhtnxr84sy9soky0bi"]},{"description":"Syllabus Template & Calendars","link":"https://wp.nyu.edu/fas-ewp/ewp-teaching-resources/syllabus-template-calendars/","tags":[],"title":"EWP Syllabus Templates","tags":["mhtnxr84iswg5u99ali"]},{"description":"Last updated Dec 2, 2022","link":"https://wp.nyu.edu/fas-ewp/ewp-bylaws/","tags":[],"title":"EWP Bylaws","tags":["mhtnxr84iswg5u99ali","mhtnxr84un3aj7zaic","mhtnxr84ywfgq4fafz"]},{"description":"Continuously updated rosters of EWP committees, with term dates.","link":"https://docs.google.com/spreadsheets/d/1q4JwdlvxW2TPY8MJYdaZ7iqMkB_P7PJHBYKgCiKVjhw/edit?gid=1362628826#gid=1362628826","tags":["mhtnxr84iswg5u99ali"],"title":"EWP Committee Members"},{"description":"Names of EWP faculty leadership positions and their current occupants, with term dates","link":"https://wp.nyu.edu/fas-ewp/rotating-faculty-leadership-positions/#outreach","tags":[],"title":"Faculty Leadership Positions","tags":["mhtnxr84iswg5u99ali"]},{"description":"Syllabi shared by EWP faculty, organized division","link":"https://sites.google.com/nyu.edu/ewp-resources/shared-syllabi?authuser=0","tags":[],"title":"Shared Syllabi","tags":["mhtnxr84iswg5u99ali"]},{"description":"These resources and recommendations highlight promising practices for making feedback and grading more effective and efficient. We know feedback and grading take more time and energy than other teaching activities, and we also know they are essential stages in the writing process that help students develop their ability to assess, revise, and enhance their work. The CAC developed these resources through two years of studying EWP student and faculty perspectives, EWP faculty approaches, and research from writing studies and other fields. Members included Anthony Carelli, Suzanne Cope, Gita DasBender, Jameson Fitzpatrick, David Foley, Michelle McSwiggan Kelly, Nate Mickelson, Brian Schwartz, and Wil Weitzel.","link":"https://docs.google.com/document/d/1KjzrONYEJt-ZEM-JAsU9iAeus-Y8XLUxiTT-754Yxd0/edit?tab=t.0","tags":[],"title":"Making Feedback and Grading More Efficient and Effective","tags":["mhtnxr84sy9soky0bi"]},{"description":"information about course and syllabus policies, including Program Vocabulary & Student Learning Outcomes\nCourse Parameters\nCourse Syllabus\nCourse Texts\nClass Attendance\nExpectations for Work Students Complete Outside of Class\nGrades of Incomplete\nGrading Standards\nGrading Criteria\nConversion Scale for Translating %s and Letter Grades and GPA Equivalents \nValuing Process Work in Course Grade Breakdowns\nDisability Accommodations\nPlagiarism\nStudents in Difficulty\nIssues of Attendance & Timely Completion of Work \nGrade Disputes","link":"https://wp.nyu.edu/fas-ewp/course-and-syllabus-policies/#plagiarism","tags":["mhtnxr84iswg5u99ali","mhtnxr84un3aj7zaic"],"title":"Course and Syllabus Policies"},{"description":"Faculty forms, including Leave of Absence, Workload Relief, Expense pre-approval form, Faculty Reimbursement Submission Form\nReimbursement Cover Sheet, and \nMissing Receipt","link":"https://wp.nyu.edu/fas-ewp/forms/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Forms"},{"description":"RESOURCES FOR SUPPORT AND SAFETY, including SUICIDE AND CRISIS\n\nNYU Wellness: 24/7 support via phone (212) 443-9999, chat, or app in 6 languages\nSame-day urgent care appointments available\n\n988Lifeline: 24/7, call, text, or chat, also in Spanish\n\n*The BlackLine, a service from BEAM, the Black Emotional and Mental Health Collective\n(800) 604-5841 \n\nThe Blue Dove, A Jewish mental health/crisis support organization that values tikkun olam, or \"repairing the world.\" Their local resource is Amudim.\n\n*Strong Hearts Native Helpline: (844) 762-8483\n\nBIAS ISSUES\n\nNYU Bias Hotline: (212) 998-2277 (not 24/7; may take 48 hours to respond)\n\n*If you are targeted for being of Arab/Muslim descent, wearing a keffiyeh, etc., contact FSJP\n\nLGBTQ+\n\nThe Trevor Project: click link for chat, text, or phone 24/7\n\n*The Ali Forney Center: (212) 206-0574 Ext 100; 24-7 drop-in center at 307 W. 38th Street, 3rd Floor\n\n*Sylvia's Place: (212) 629-7440 An emergency night shelter for LGBTQ+ ages 16-23 at 446 W. 36th Street\n\n*Trans Lifeline: (877) 565-8860 (not 24/7)\n\n*NYC Gay and Lesbian Anti-Violence Project: (212) 714-1141, 24/7, Spanish and English\n\nA guide to help transgender people prepare for potential anti-trans government action\n\nIMMIGRATION ISSUES\n\nNational Network For Immigrant and Refugee Rights: A resource for all nationalities and gender identities who have concerns about their immigration/refugee status and/or safety.\n\nAction NYC: (800) 354-0365\n\nCitizenship Now: (212) 652-2071\n\n*NYU Law Immigrant Defense Initiative (212) 998-6640. \n\nImmigration Law Help – online directory of free/low cost immigrant legal aid\n\n*CUNY CLEAR (Creating Law Enforcement Accountability and Responsibility)\n(718) 340-4558 \nA CUNY School of Law project \"to address the unmet legal needs of Muslim, Arab, South Asian, and other communities in the NYC area that are particularly affected by national security and counter-terrorism policies and practices.\" \n\nSEXUAL ASSAULT AND HARRASSMENT; DOMESTIC AND DATING VIOLENCE\n\nRAINN (Rape, Abuse, and Incest National Network): (800) 656-4673 24/7, Spanish and English \n\n*Safe Horizons: 1 (800) 621-4673 24/7; In multiple languages\n\nHATE CRIMES\n\n*Safe Horizons (866) 689-HELP (4357) 24/7; in multiple languages\n\nStop AAPI Hate: A coalition dedicated to ending racism and discrimination against Asian Americans and Pacific Islanders. \n\nFrom Capital B: \"Strategies for Black Americans to Nurture Mental Health After the Election\"\n\nSHELTER\n\nThe Emergency Shelter Network, operating in all five NYC boroughs","link":"https://docs.google.com/document/d/1zVl8TAkkb5RvNuqbSVtIPu7cCBWv8qszbRk5Gya1YZo/edit?tab=t.0","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Safety and Support Resources"},{"description":"EWP administrative procedures, including:  Administrative Procedures\nAlbert Faculty Center\nAnnual Merit Increase\nCopyright Policy at NYU\nCopy Procedure / Printer Access\nCourse Evaluations\nDisability Accommodations\nFERPA: University Compliance\nLaptops for Faculty\nLeaves of Absence\nLeaves to Pursue Scholarly or Creative Work\nMercer Street Invitations\nNYU's Policy on Sexual Misconduct, Relationship Violence, and Stalking\nOffice Space\nOffice Supplies\nReappointment & Promotion\nResearch Funds & Reimbursement Process\nRotating Faculty Leadership Positions\nStudent Grade Appeals\nTeaching Assignments","link":"https://wp.nyu.edu/fas-ewp/administrative-procedures/","tags":["mhtnxr84iswg5u99ali","mhtnxr84ywfgq4fafz"],"title":"Administrative Procedures"}],"tags":[{"color":"#6b2d8f","id":"mhtnxr84iswg5u99ali","name":"Department"},{"color":"#3498db","id":"mhtnxr84sy9soky0bi","name":"Professional Development"},{"color":"#e74c3c","id":"mhtnxr84un3aj7zaic","name":"Policies"},{"color":"#2ecc71","id":"mhtnxr84tzsdiahlbs","name":"Tools"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"}]},
@@ -2472,6 +2495,22 @@ header {
         {"archived":false,"assignmentName":"Student Resources","comments":[{"description":"a writing platform embedded with EWP practices and principles","link":"https://landfair.github.io/writingcenter/","tags":[],"title":"Writing-center.org"},{"description":"A repository for saving and sharing comment banks.","link":"https://landfair.github.io/SayMoreHere/","tags":[],"title":"Say More Here"},{"description":"A document-comparison tool for students","link":"https://landfair.github.io/Revise-Bro/","tags":[],"title":"U even revise, bro?"}],"tags":[{"color":"#1abc9c","id":"mhtnxr84q7flzipray","name":"Academic Support"},{"color":"#3498db","id":"mhtnxr84xu8ana8fcnl","name":"Writing Center"},{"color":"#9b59b6","id":"mhtnxr84s54gewmem6m","name":"Tutoring"},{"color":"#e67e22","id":"mhtnxr84ah4iceaqfbp","name":"Campus Services"},{"color":"#e74c3c","id":"mhtnxr84ywfgq4fafz","name":"Important"},{"color":"#3498db","id":"mhtnxr84abcuzey2f8a","name":"To Read"},{"color":"#9b59b6","id":"mhtnxr84rvhsbudnmik","name":"Reference"},{"color":"#2ecc71","id":"mhtnxr84j8d79afajva","name":"Current Semester"}]},
         {"archived":false,"assignmentName":"Writing Research","comments":[{"description":"","link":"https://wp.nyu.edu/fas-ewp/further-reading/","tags":[],"title":"Antiracist pedagogies further readings"},{"description":"Trace the research efforts and pathways of the AiE VIP team.","link":"https://landfair.github.io/AI_Education_VIP_ResearachExchange/","tags":[],"title":"AI in Education VIP Team Research Exchange"},{"description":"A collaborative annotated bibliography of research in writing studies and writing pedagogy foundational to EWP curriculum.","link":"https://landfair.github.io/NYUWritingProgramResearchExchange/","tags":[],"title":"EWP Writing Research Exchange"},{"description":"Reading for Teachers","link":"https://wp.nyu.edu/fas-ewp/creating-inclusive-classrooms/","tags":[],"title":"Creating Inclusive Classrooms"},{"description":"FAQ, readings, and other resources re: student accomodations","link":"https://docs.google.com/document/d/1aZyOp5bnjQO0RyLu5ffKBQim6oIiEv02h_Pn3xxd8YA/edit?tab=t.0#heading=h.e5sw6u4vhit0","tags":[],"title":"On Accomodations"},{"description":"Scholarship and resources for teaching international sections","link":"https://drive.google.com/drive/folders/1FymTFmIEHH1bEyhNIe3N0aDw4OriAlHi","tags":[],"title":"Research for Teaching Writing to Nonnative English Speakers"}],"tags":[{"color":"#9b59b6","id":"mhtnybtipwchyc6m5wn","name":"Pedagogy"},{"color":"#3498db","id":"mhtnybtioo3zd8xgth","name":"AI in Education"},{"color":"#2ecc71","id":"mhtnybtifd7sqx3pfuw","name":"Antiracist Pedagogy"},{"color":"#e67e22","id":"mhtnybti5ywsitnmdnj","name":"Inclusive Teaching"},{"color":"#16a085","id":"mhtnybtiu4hwjxtoj0g","name":"Multilingual Writers"},{"color":"#f39c12","id":"mhtnybtivtyaalvc6kp","name":"Accommodations"},{"color":"#c0392b","id":"mhtnybti0y3k2zi7dy0k","name":"Important"},{"color":"#3498db","id":"mhtnybtirahlynppwol","name":"To Read"}]}
       ];
+
+      // Sort drawers alphabetically
+      drawers.sort((a, b) => a.assignmentName.localeCompare(b.assignmentName));
+
+      // Sort cards within each drawer alphabetically
+      drawers.forEach(drawer => {
+        if (drawer.comments && drawer.comments.length > 0) {
+          drawer.comments.sort((a, b) => {
+            const titleA = (a.title || 'Untitled').toLowerCase();
+            const titleB = (b.title || 'Untitled').toLowerCase();
+            return titleA.localeCompare(titleB);
+          });
+        }
+      });
+
+      return drawers;
     }
 
     // localStorage wrapper
@@ -2540,11 +2579,11 @@ header {
       searchQuery = '';
       document.getElementById('comment-search').value = '';
 
-      // Reset tag filter state
+      // Reset tag filter state - keep collapsed initially
       const tagFilterBar = document.getElementById('tag-filter-bar');
       const toggleBtn = document.getElementById('toggle-filters-btn');
-      tagFilterBar.classList.remove('collapsed');
-      toggleBtn.style.transform = 'rotate(0deg)';
+      tagFilterBar.classList.add('collapsed');
+      toggleBtn.style.transform = 'rotate(-90deg)';
 
       displayComments(bank.comments);
       displayTagFilters();
@@ -2783,72 +2822,6 @@ header {
       }
     }
 
-    function highlightMovedDrawer(drawerName) {
-      requestAnimationFrame(() => {
-        const drawerElements = document.querySelectorAll('.comment-bank-link');
-        drawerElements.forEach(el => {
-          const nameEl = el.querySelector('.comment-bank-name');
-          if (nameEl && nameEl.textContent === drawerName) {
-            el.classList.add('drawer-moved-highlight');
-            setTimeout(() => {
-              el.classList.remove('drawer-moved-highlight');
-            }, 2000);
-          }
-        });
-      });
-    }
-
-    function moveDrawerUp(index) {
-      // Can't move up if it's already at the top or if it's the first non-archived drawer
-      const unarchivedDrawers = commentBanks.filter(b => !b.archived);
-      const currentDrawer = commentBanks[index];
-      const drawerName = currentDrawer.assignmentName;
-
-      // Find previous unarchived drawer
-      let prevIndex = -1;
-      for (let i = index - 1; i >= 0; i--) {
-        if (!commentBanks[i].archived) {
-          prevIndex = i;
-          break;
-        }
-      }
-
-      if (prevIndex !== -1) {
-        // Swap the drawers
-        [commentBanks[index], commentBanks[prevIndex]] = [commentBanks[prevIndex], commentBanks[index]];
-        saveData();
-        updateCommentBankList();
-
-        // Highlight the moved drawer
-        highlightMovedDrawer(drawerName);
-      }
-    }
-
-    function moveDrawerDown(index) {
-      // Can't move down if it's already at the bottom or if it's the last non-archived drawer
-      const currentDrawer = commentBanks[index];
-      const drawerName = currentDrawer.assignmentName;
-
-      // Find next unarchived drawer
-      let nextIndex = -1;
-      for (let i = index + 1; i < commentBanks.length; i++) {
-        if (!commentBanks[i].archived) {
-          nextIndex = i;
-          break;
-        }
-      }
-
-      if (nextIndex !== -1) {
-        // Swap the drawers
-        [commentBanks[index], commentBanks[nextIndex]] = [commentBanks[nextIndex], commentBanks[index]];
-        saveData();
-        updateCommentBankList();
-
-        // Highlight the moved drawer
-        highlightMovedDrawer(drawerName);
-      }
-    }
-
     // Display functions
     function updateCommentBankList() {
       const list = document.getElementById('comment-bank-list');
@@ -2869,9 +2842,13 @@ header {
       // Get search query once
       const drawerSearch = document.getElementById('drawer-search').value.trim().toLowerCase();
 
-      commentBanks.forEach((bank, index) => {
-        // Skip archived drawers in main list
-        if (bank.archived) return;
+      // Create sorted array of non-archived drawers with original indices
+      const sortedBanks = commentBanks
+        .map((bank, index) => ({ bank, index }))
+        .filter(item => !item.bank.archived)
+        .sort((a, b) => a.bank.assignmentName.localeCompare(b.bank.assignmentName));
+
+      sortedBanks.forEach(({ bank, index }) => {
 
         let results = [];
 
@@ -2918,24 +2895,6 @@ header {
         const actions = document.createElement('div');
         actions.className = 'comment-bank-actions';
 
-        const upBtn = document.createElement('button');
-        upBtn.className = 'bank-action-btn bank-move-btn';
-        upBtn.textContent = '∧';
-        upBtn.title = 'Move drawer up';
-        upBtn.onclick = (e) => {
-          e.stopPropagation();
-          moveDrawerUp(index);
-        };
-
-        const downBtn = document.createElement('button');
-        downBtn.className = 'bank-action-btn bank-move-btn';
-        downBtn.textContent = '∨';
-        downBtn.title = 'Move drawer down';
-        downBtn.onclick = (e) => {
-          e.stopPropagation();
-          moveDrawerDown(index);
-        };
-
         const shareBtn = document.createElement('button');
         shareBtn.className = 'bank-action-btn bank-share-btn';
         shareBtn.textContent = '[share]';
@@ -2954,8 +2913,6 @@ header {
           showArchiveConfirmPopup(index);
         };
 
-        actions.appendChild(upBtn);
-        actions.appendChild(downBtn);
         actions.appendChild(shareBtn);
         actions.appendChild(archiveBtn);
         header.appendChild(nameContainer);
@@ -3130,6 +3087,13 @@ header {
         list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>No cards found</h3><p>Try adjusting your filters or search query</p></div>';
         return;
       }
+
+      // Sort cards alphabetically by title
+      filtered = filtered.sort((a, b) => {
+        const titleA = (a.title || 'Untitled').toLowerCase();
+        const titleB = (b.title || 'Untitled').toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
 
       filtered.forEach((card, originalIndex) => {
         // Find original index
@@ -3675,6 +3639,18 @@ header {
       document.getElementById('overlay').style.display = 'none';
     }
 
+    function showWelcome() {
+      document.getElementById('welcome-popup').style.display = 'flex';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideWelcome() {
+      document.getElementById('welcome-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      // Mark that user has seen the welcome popup
+      localStorage.setItem('drawersWelcomeSeen', 'true');
+    }
+
     // Konami Code Easter Egg
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     let konamiIndex = 0;
@@ -3766,6 +3742,12 @@ header {
 
     document.getElementById('closeAboutBtn').onclick = hideAbout;
     document.getElementById('closeKonamiBtn').onclick = hideKonami;
+    document.getElementById('closeWelcomeBtn').onclick = hideWelcome;
+
+    document.getElementById('getChromeExtBtn').onclick = () => {
+      document.getElementById('optionsDropdownMenu').classList.remove('show');
+      window.open('https://landfair.github.io/DrawersInstructions/', '_blank');
+    };
 
     document.getElementById('downloadBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
@@ -3962,6 +3944,13 @@ header {
     // Initialize
     loadData();
     loadFromURL();
+
+    // Show welcome popup for first-time visitors
+    const hasSeenWelcome = localStorage.getItem('drawersWelcomeSeen');
+    if (!hasSeenWelcome) {
+      // Small delay to let the page load first
+      setTimeout(showWelcome, 500);
+    }
   </script>
 </body>
 </html>
