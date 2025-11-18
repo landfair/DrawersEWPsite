@@ -4771,7 +4771,7 @@ header {
         openArchiveDrawer(false);
       } else if (hash === 'privacy-policy') {
         // Open privacy policy
-        showPrivacyPolicy();
+        showPrivacyPolicy(false);
       } else {
         // Find drawer by slug
         const index = commentBanks.findIndex(bank => slugify(bank.assignmentName) === hash);
