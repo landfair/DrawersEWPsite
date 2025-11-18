@@ -2408,6 +2408,68 @@ header {
     <div id="archived-drawers-list" class="comments-list-wrapper"></div>
   </div>
 
+  <!-- Privacy Policy Container -->
+  <div id="privacy-policy-container" class="comment-container" style="display: none;">
+    <div class="comments-list-wrapper" style="max-width: 900px; margin: 0 auto; padding: 48px 24px;">
+      <div style="background: var(--card-background); border-radius: var(--radius-lg); padding: 48px; box-shadow: var(--shadow-md);">
+        <div style="margin-bottom: 48px;">
+          <h2 style="color: var(--primary-color); font-size: 2rem; font-weight: 700; margin-bottom: 16px;">Privacy Policy</h2>
+          <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
+            Drawers is designed with your privacy as a top priority. This privacy policy explains how your data is handled.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+          <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">Local Storage Only</h3>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7;">
+            All your data is stored locally in your browser using localStorage. Your drawers, cards, tags, and all other information never leave your device. This means your data is private and under your control at all times.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+          <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">No Data Collection</h3>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7;">
+            We do not collect, transmit, or store any of your personal information or usage data. There are no analytics, tracking scripts, or third-party services that monitor your activity. What you create in Drawers stays on your device.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+          <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">No Account Required</h3>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7;">
+            Drawers works entirely in your browser without requiring an account, login, or any personal information. You maintain complete control over your data without having to trust it to any external service.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+          <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">Chrome Extension Sync</h3>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7; margin-bottom: 12px;">
+            <strong>Important:</strong> The Chrome extension and standalone web versions handle data differently:
+          </p>
+          <ul style="color: var(--text-primary); font-size: 1rem; line-height: 1.7; margin-left: 24px; margin-bottom: 12px;">
+            <li style="margin-bottom: 8px;"><strong>Standalone Web Version:</strong> All data stays purely local in your browser using localStorage. Nothing is transmitted.</li>
+            <li style="margin-bottom: 8px;"><strong>Chrome Extension:</strong> Uses Chrome's built-in sync service to synchronize your drawers across devices where you're signed into Chrome.</li>
+          </ul>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7;">
+            When using the Chrome extension, if your data is under 100KB total (and each drawer under 8KB), it's transmitted through Google's Chrome Sync infrastructure—not our servers. We do not have access to your synced data. For larger collections exceeding Chrome's sync limits, data remains local-only on each device. You can disable Chrome sync in your browser settings if you prefer local-only storage.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+          <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600; margin-bottom: 12px;">Export and Delete</h3>
+          <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7;">
+            You can export your drawers at any time using the download feature in the options menu. You can also delete all your data instantly using the "Reset All Data" option. Your data, your choice.
+          </p>
+        </div>
+
+        <div style="padding-top: 32px; border-top: 2px solid var(--border-color); text-align: center;">
+          <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500; font-style: italic;">
+            Your data stays under your control, always.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Comment Container -->
   <div id="comment-container" class="comment-container">
     <div class="drawer-search-container">
@@ -2438,7 +2500,8 @@ header {
 
   <footer class="footer">
     <div class="footer-copyright">
-      © <span id="copyright-year"></span> Alexander Landfair. All rights reserved.
+      © <span id="copyright-year"></span> Alexander Landfair. All rights reserved. |
+      <a href="#privacy-policy" id="privacyPolicyLink" style="color: var(--primary-color); text-decoration: none; cursor: pointer;">Privacy Policy</a>
     </div>
   </footer>
 
@@ -2547,6 +2610,7 @@ header {
     function goToHome(updateHistory = true) {
       document.getElementById('comment-container').style.display = 'none';
       document.getElementById('archive-container').style.display = 'none';
+      document.getElementById('privacy-policy-container').style.display = 'none';
       document.getElementById('landing-container').style.display = 'block';
       document.querySelector('.container').style.display = 'block';
       currentCommentBankIndex = -1;
@@ -2566,6 +2630,7 @@ header {
 
       document.getElementById('landing-container').style.display = 'none';
       document.getElementById('archive-container').style.display = 'none';
+      document.getElementById('privacy-policy-container').style.display = 'none';
       document.getElementById('comment-container').style.display = 'block';
       document.querySelector('.container').style.display = 'none';
 
@@ -2613,6 +2678,7 @@ header {
     function openArchiveDrawer(updateHistory = true) {
       document.getElementById('landing-container').style.display = 'none';
       document.getElementById('comment-container').style.display = 'none';
+      document.getElementById('privacy-policy-container').style.display = 'none';
       document.getElementById('archive-container').style.display = 'block';
       document.querySelector('.container').style.display = 'none';
 
@@ -3629,6 +3695,22 @@ header {
       document.getElementById('overlay').style.display = 'block';
     }
 
+    function showPrivacyPolicy(updateHistory = true) {
+      document.getElementById('landing-container').style.display = 'none';
+      document.getElementById('comment-container').style.display = 'none';
+      document.getElementById('archive-container').style.display = 'none';
+      document.getElementById('privacy-policy-container').style.display = 'block';
+      document.querySelector('.container').style.display = 'none';
+
+      // Update header title
+      document.getElementById('main-title').innerHTML = 'Drawers <span style="font-weight: 400;">→ Privacy Policy</span>';
+
+      // Update URL
+      if (updateHistory) {
+        history.pushState({ view: 'privacy-policy' }, '', '#privacy-policy');
+      }
+    }
+
     function showKonami() {
       document.getElementById('konami-popup').style.display = 'flex';
       document.getElementById('overlay').style.display = 'block';
@@ -3743,6 +3825,11 @@ header {
     document.getElementById('closeAboutBtn').onclick = hideAbout;
     document.getElementById('closeKonamiBtn').onclick = hideKonami;
     document.getElementById('closeWelcomeBtn').onclick = hideWelcome;
+
+    // Privacy policy link in footer
+    document.getElementById('privacyPolicyLink').onclick = () => {
+      showPrivacyPolicy();
+    };
 
     document.getElementById('getChromeExtBtn').onclick = () => {
       document.getElementById('optionsDropdownMenu').classList.remove('show');
@@ -3917,6 +4004,9 @@ header {
       } else if (hash === 'archive') {
         // Open archive
         openArchiveDrawer(false);
+      } else if (hash === 'privacy-policy') {
+        // Open privacy policy
+        showPrivacyPolicy();
       } else {
         // Find drawer by slug
         const index = commentBanks.findIndex(bank => slugify(bank.assignmentName) === hash);
@@ -3933,6 +4023,8 @@ header {
       const hash = window.location.hash.substring(1);
       if (hash === 'archive') {
         openArchiveDrawer(false);
+      } else if (hash === 'privacy-policy') {
+        showPrivacyPolicy();
       } else if (hash) {
         const index = commentBanks.findIndex(bank => slugify(bank.assignmentName) === hash);
         if (index !== -1) {
